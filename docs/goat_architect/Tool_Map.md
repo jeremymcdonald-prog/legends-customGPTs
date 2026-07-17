@@ -13,5 +13,6 @@
 | HeyGen / AI video | Approved scripts and avatar production | Consent for likeness/voice; visible disclosure where required; script compliance review |
 | Google Business Profile / social tools | Draft and schedule approved content | Current licensing and disclosures; no unsupported superlatives |
 | MOSO / pricing / guideline systems | Internal verified lookup only | Never expose publicly; official system remains source of truth |
+| Secure lead-capture facade | Validate consent, active profile assignment, approved fields, deduplication, and destination delivery | External authenticated endpoint; public privacy policy; payload-free audit; no application documents |
 
-Action schemas belong in `actions/schemas/`; this map does not grant permission or contain credentials.
+Reusable Action schemas belong in `actions/schemas/`; the planned mortgage lead contract is grouped in `actions/lead_capture/`. This map does not grant permission or contain credentials.

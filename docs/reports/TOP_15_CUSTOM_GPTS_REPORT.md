@@ -56,6 +56,28 @@ Ties are resolved by near-term workflow evidence, internal/partner safety, and s
 | 14 | Legends Integrations Setup Coach | 8 | 6 | 9 | 7 | 6 | 9 | 9 | 9 | 5 | 2 | 10 | 9 | 6 | 5 | 9 | **109** |
 | 15 | Legends Podcast & Long-Form Content Producer | 6 | 5 | 8 | 6 | 5 | 4 | 8 | 7 | 8 | 10 | 9 | 7 | 9 | 9 | 7 | **108** |
 
+## Ownership, routing, and lead-capture matrix
+
+This matrix is a launch requirement for each recommendation. “Conditional” means the public privacy policy and explicit consent are required whenever lead capture is enabled.
+
+| Rank | GPT | Owner modes supported | Required profile type | Mortgage routing | Apply Now behavior | Lead capture suitability | Public privacy requirement | Consumer consent | Contact fallback |
+|---:|---|---|---|---|---|---|---|---|---|
+| 1 | Pipeline & Processing Copilot | `jeremy`, `loan_officer`, `team_shared` | Team leader or loan officer | Internal operations only; no public mortgage CTA | `no_application_link` | Not suitable | Internal data policy; no public lead Action | Not applicable | Generated owner operational contact only |
+| 2 | Realtor Co-Marketing & Partner Growth Studio | All four | Owner profile; Realtor requires assigned lender | Owner lender or Realtor's assigned lender | Owner or assigned-lender link | Suitable for an approved public handoff | Required | Explicit before every submission | Assigned lender phone, email, Apply Now |
+| 3 | Mortgage Content Repurposing Studio | All four | Owner profile; Realtor requires assigned lender | Inherited from owner and assigned-lender snapshot | Owner or assigned-lender link | Optional | Conditional | Conditional | Generated licensed-lender contact |
+| 4 | Team Growth & Coaching Assistant | `jeremy`, `loan_officer`, `team_shared` | Team leader or loan officer | Internal only | `no_application_link` | Not suitable | Not required for internal-only use | Not applicable | Generated owner contact |
+| 5 | Webinar Campaign Builder | All four | Owner profile; Realtor requires assigned lender | Owner lender or Realtor's assigned lender | Owner or assigned-lender link | Suitable | Required | Explicit before every submission | Assigned lender phone, email, Apply Now |
+| 6 | Executive AI Boardroom | `jeremy`, `team_shared` | Team leader | Internal only | `no_application_link` | Not suitable | Not required | Not applicable | Generated owner contact |
+| 7 | Loan Scenario & Structuring Copilot | `jeremy`, `loan_officer`, `team_shared` | Team leader or loan officer | Authenticated internal workflow only | `no_application_link` | Not suitable | Not required | Not applicable | Generated licensed-owner contact |
+| 8 | Visual & Video Production Coach | All four | Owner profile; Realtor requires assigned lender | Mortgage CTAs inherit the resolved lender | Owner or assigned-lender link | Optional, not core | Conditional | Conditional | Generated licensed-lender contact |
+| 9 | Brand Voice & AI Twin Studio | All four | Owner profile; Realtor requires assigned lender | Inherited from generated routing snapshot | Owner, assigned-lender, or none by package | Optional, not core | Conditional | Conditional | Generated licensed-lender contact |
+| 10 | Local Search & GBP Growth Assistant | All four | Owner profile; Realtor requires assigned lender | Mortgage inquiries route to owner or assigned lender | Owner or assigned-lender link | Suitable | Required | Explicit before every submission | Assigned lender phone, email, Apply Now |
+| 11 | Market & Rate Translator | All four | Owner profile; Realtor requires assigned lender | Owner lender or Realtor's assigned lender | Owner or assigned-lender link | Suitable only for approved public handoff | Required | Explicit before every submission | Assigned lender phone, email, Apply Now |
+| 12 | Borrower Education & Lead Concierge | All four | Owner profile; Realtor requires assigned lender | Owner lender or Realtor's assigned lender | Owner or assigned-lender link | Primary use case | Required | Explicit before every submission | Assigned lender phone, email, Apply Now |
+| 13 | Investor & DSCR Deal Desk | All four | Owner profile; Realtor requires assigned lender | Owner lender or Realtor's assigned lender | Owner or assigned-lender link | Suitable | Required | Explicit before every submission | Assigned lender phone, email, Apply Now |
+| 14 | Integrations Setup Coach | `jeremy`, `team_shared` | Team leader | Internal setup only | `no_application_link` | Not suitable | Not required | Not applicable | Generated owner contact |
+| 15 | Podcast & Long-Form Content Producer | All four | Owner profile; Realtor requires assigned lender | Mortgage CTAs inherit the resolved lender | Owner or assigned-lender link | Optional | Conditional | Conditional | Generated licensed-lender contact |
+
 ## Detailed recommendations
 
 ### 1. Legends Pipeline & Processing Copilot

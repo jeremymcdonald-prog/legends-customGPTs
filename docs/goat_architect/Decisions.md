@@ -29,3 +29,13 @@
 
 - **Decision:** All future GPTs use the structure in `Architecture.md`, semantic versioning, shared knowledge, and recorded tests.
 - **Reason:** Consistency lowers maintenance cost and prevents prompt-only orphan systems.
+
+## D-007 — Centralized contact profiles, assigned-lender routing, and consented lead handoff
+
+- **Decision:** Contact and lending partner data will use centralized profile files with generated GPT specific snapshots. Realtor GPTs will route mortgage opportunities to an assigned licensed Legends Mortgage Team loan officer. Lead submission will require explicit consumer consent and a secure external Action endpoint.
+- **Reason:** A single source prevents conflicting identity and Apply Now values, preserves Realtor ownership of real-estate relationships, makes the licensed mortgage recipient visible, and keeps lead intake within a reviewable privacy and security boundary.
+
+## D-008 — Destination-neutral lead-capture facade
+
+- **Decision:** Define the `submitMortgageLead` contract and launch gates without deploying an endpoint or selecting a CRM. A future implementation will use a small authenticated API/serverless facade with a replaceable approved destination adapter.
+- **Reason:** The reviewed sources reference multiple downstream systems and do not establish one current system of record. The routing, consent, validation, and audit boundary can be governed before that operational decision.

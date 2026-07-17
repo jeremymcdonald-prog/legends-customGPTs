@@ -8,3 +8,6 @@
 6. Pipeline Action source material proposes instruction-embedded shared tokens; production must move authentication server-side with role scoping and rotation.
 7. Existing live GPT links and current configurations were documented but not externally audited in this task.
 8. Measurement baselines for time saved, conversion, accepted-draft rate, and correction rate are not yet captured.
+9. Active profiles, approved public contact data, and current licensing/service-area ownership have not been established for team loan officers or Realtors.
+10. The lead-capture system owner, downstream destination, public privacy-policy URL, retention/deletion schedule, and human follow-up SLA are not selected.
+11. `submitMortgageLead` is an architecture contract only; no endpoint, authentication configuration, privacy approval, threat review, or end-to-end test environment exists.

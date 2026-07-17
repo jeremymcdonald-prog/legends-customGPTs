@@ -12,10 +12,20 @@
 - [x] Commit the foundation.
 - [x] Push safely after confirming the remote remained unchanged and authentication worked.
 
+## Contact and referral architecture
+
+- [x] Add Jeremy's approved centralized team-leader profile and reusable LO/Realtor templates.
+- [x] Define manifest ownership, audience, assigned-lender, Apply Now, privacy, and lead-capture properties.
+- [x] Add deterministic generated contact, compliance, CTA, and referral snapshots with regeneration tests.
+- [x] Document Realtor, loan-officer, Jeremy, and team-shared routing behavior.
+- [x] Define the non-deployed `submitMortgageLead` contract and its privacy/security/field/routing/test requirements.
+- [x] Extend the top-15 report with ownership, routing, consent, privacy, and fallback requirements.
+
 ## Deferred by mission boundary
 
 - [ ] Build GPT package 1.
 - [ ] Curate production knowledge from raw source material.
 - [ ] Implement or connect Custom Actions.
+- [ ] Select and approve the lead destination, external API owner, public privacy policy, and retention/deletion process.
 - [ ] Run Loan Factory compliance approval.
 - [ ] Publish any GPT.

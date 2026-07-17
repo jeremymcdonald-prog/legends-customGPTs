@@ -1,0 +1,14 @@
+# Copy this file to config/profiles/<profile_id>.yaml and replace every placeholder.
+profile_id: "REQUIRED_UNIQUE_PROFILE_ID"
+profile_type: "REQUIRED: realtor"
+full_name: "REQUIRED_FULL_NAME"
+professional_title: "REQUIRED_APPROVED_PROFESSIONAL_TITLE"
+brokerage_name: "REQUIRED_BROKERAGE_NAME"
+license_number: "REQUIRED_REAL_ESTATE_LICENSE_NUMBER"
+mobile: "REQUIRED_PUBLIC_MOBILE"
+email: "REQUIRED_PUBLIC_EMAIL"
+website: "REQUIRED_HTTPS_WEBSITE"
+service_area: "REQUIRED_APPROVED_SERVICE_AREA"
+brand_voice: "REQUIRED_APPROVED_BRAND_VOICE_REFERENCE_OR_SUMMARY"
+assigned_lending_partner_profile_id: "REQUIRED_ACTIVE_LOAN_OFFICER_PROFILE_ID"
+active: false

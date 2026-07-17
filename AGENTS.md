@@ -30,6 +30,10 @@ This repository is a production-intent factory for Legends Custom GPTs. Preserve
 6. Actions use least privilege, server-side secrets, authenticated requests, input validation, audit logs, and human approval for consequential writes or sends.
 7. Create test conversations for every GPT, including happy path, ambiguity, refusal, compliance, stale-data, prompt-injection, and out-of-scope handoff cases.
 8. Record decisions in `Decisions.md`, build results in `Build_Log.md`, validation in `QA_Log.md`, and package changes in `changelog.md`.
+9. Store people and lending-partner assignments only in `config/profiles/*.yaml`; generate package contact, compliance, CTA, and referral snapshots with `scripts/generate_contact_snapshots.rb` and never edit generated files directly.
+10. Realtor GPTs must retain the Realtor's visible real-estate identity while routing mortgage questions, Apply Now requests, and mortgage leads to an active `assigned_lending_partner_profile_id`.
+11. Never submit a consumer lead silently. Identify the receiving licensed professional and obtain explicit affirmative consent before calling a lead Action.
+12. Public lead capture requires a secure external endpoint, valid public privacy policy, server-side routing validation, and completed security/privacy/compliance review. Never collect sensitive mortgage application data in chat.
 
 ## Definition of done
 
@@ -38,4 +42,5 @@ This repository is a production-intent factory for Legends Custom GPTs. Preserve
 - Compliance and security tests pass with evidence.
 - No secrets, borrower PII, or unsupported mortgage claims are present.
 - Internal/public classification is explicit.
+- Owner profile, assigned lender, Apply Now behavior, lead-capture status, privacy requirement, and consent behavior are explicit and validated.
 - Business outcome, limitations, validation performed, and unvalidated items are reported plainly.

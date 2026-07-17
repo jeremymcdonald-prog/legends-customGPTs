@@ -14,6 +14,13 @@ Every package begins with:
 - Data classification and prohibited data.
 - Capability settings and Action list.
 - Knowledge sources with owners and review dates.
+- The required ownership, audience, assigned-lender, routing, lead-capture, privacy, compliance, and Apply Now fields from `manifest.template.md`.
+
+## Generated contact and routing files
+
+Create `generated/` in the package and populate it with `scripts/generate_contact_snapshots.rb`. It must contain `contact_profile.md`, `compliance_identity.md`, `call_to_action_library.md`, and `referral_routing.md`.
+
+Never edit these outputs directly or duplicate contact details in package instructions. Update the centralized profile YAML, regenerate, inspect the diff, and run `scripts/test_contact_snapshot_generation.rb`. Realtor packages require an active assigned lending partner. Team-shared packages require an active selected loan officer or approved team routing endpoint before mortgage routing is enabled.
 
 ## Versioning
 

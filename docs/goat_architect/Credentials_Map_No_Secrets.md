@@ -13,5 +13,6 @@ This file names credential categories and ownership only. It must never contain 
 | Zapier | Zapier connected accounts | Approved operators | Confirm before integration work |
 | Canva / HeyGen / media tools | Vendor account credential store | Marketing operators | Confirm consent and license scope |
 | Hosting / API gateway | Deployment secret manager | Service identities | Select during Action design |
+| Mortgage lead-capture Action | GPT Action authentication configuration plus approved server-side secret manager | Lead facade service identity only | Not implemented; select owner and endpoint before launch |
 
 Credential rotation, revocation, owner, scope, and last verification date must be recorded in the authorized secret-management system, not Git.

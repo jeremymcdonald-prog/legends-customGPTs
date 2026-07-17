@@ -1,0 +1,21 @@
+# Copy this file to config/profiles/<profile_id>.yaml and replace every placeholder.
+profile_id: "REQUIRED_UNIQUE_PROFILE_ID"
+profile_type: "REQUIRED: loan_officer"
+full_name: "REQUIRED_FULL_NAME"
+professional_title: "REQUIRED_APPROVED_PROFESSIONAL_TITLE"
+team_role: "REQUIRED_TEAM_ROLE"
+team_name: "REQUIRED_TEAM_NAME"
+company_name: "REQUIRED_COMPANY_NAME"
+mobile: "REQUIRED_PUBLIC_MOBILE"
+email: "REQUIRED_PUBLIC_EMAIL"
+personal_website: "REQUIRED_HTTPS_PERSONAL_WEBSITE"
+team_website: "REQUIRED_HTTPS_TEAM_WEBSITE"
+individual_nmls: "REQUIRED_INDIVIDUAL_NMLS_DIGITS_ONLY"
+company_nmls: "REQUIRED_COMPANY_NMLS_DIGITS_ONLY"
+apply_now_url: "REQUIRED_HTTPS_APPLICATION_URL"
+booking_url: "OPTIONAL_HTTPS_BOOKING_URL"
+service_area: "REQUIRED_APPROVED_SERVICE_AREA"
+states_licensed:
+  - "REQUIRED_STATE_CODE"
+equal_housing_required: true
+active: false

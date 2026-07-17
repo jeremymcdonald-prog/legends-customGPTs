@@ -32,3 +32,27 @@
 ### Final Git validation
 
 Commit hash, clean-worktree proof, remote non-divergence, and push status are recorded after the commit/push step.
+
+## 2026-07-17 — Contact, referral, and lead-capture architecture validation
+
+### Passed
+
+- Central profile: Jeremy McDonald's full name, exact title, team role, company, phone, email, personal website, team website, individual/company NMLS values, Equal Housing flag, and Apply Now URL are present in one active YAML profile.
+- Generator: Ruby syntax checks passed on the generator and test; `ruby scripts/test_contact_snapshot_generation.rb` passed.
+- Generated snapshots: all four required files were produced in a temporary directory with the generated-file warning, exact approved Jeremy contact values, exact compliance sentence, explicit consent prompt, fallback contact, and one approved Apply Now URL.
+- Regeneration: the test changed one source lender profile and verified that all four dependent files regenerated with the updated identity and no stale identity; a Realtor with a missing assigned lender failed closed.
+- OpenAPI: YAML parsed successfully; `submitMortgageLead` exists once; all fifteen minimum request fields are required; unknown fields are rejected; the seven required response fields are defined.
+- Sensitive-field boundary: none of the nine prohibited application fields is defined in `openapi.yaml`; the field and security docs explicitly prohibit them.
+- Consent and privacy: the schema requires `consent_to_contact: true` and a timestamp; public-launch docs require a valid public privacy-policy URL and identify the current URL as a non-launch placeholder.
+- Reusable coverage: ten lead-capture behaviors, ten CTA variants, fifteen GPT routing tests, fifteen Action tests, and sixteen security requirements are documented.
+- Portfolio: exactly fifteen numbered recommendations and fifteen score rows remain; all fifteen now include ownership, profile, routing, Apply Now, lead suitability, privacy, consent, and fallback requirements.
+- Links: all authored local relative Markdown links resolve. Jeremy's personal website, team website, and Apply Now URL each returned HTTP 200 on 2026-07-17.
+- Formatting: `git diff --cached --check` passed across the complete staged change set.
+
+### Not validated / intentionally deferred
+
+- No Action endpoint was deployed or called; the server and privacy URLs are intentionally non-routable placeholders.
+- No CRM or downstream destination was selected, connected, or tested.
+- No secret or authentication value was created or configured.
+- No team-member or Realtor production profile was supplied, so only Jeremy's production profile and synthetic temporary routing fixtures were tested.
+- Loan Factory compliance, privacy, security, legal, licensing, data-retention, and operational owners have not approved a public launch.
