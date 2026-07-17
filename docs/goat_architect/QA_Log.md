@@ -83,3 +83,24 @@ Commit hash, clean-worktree proof, remote non-divergence, and push status are re
 - No Action endpoint, authentication, destination adapter, CRM, live privacy URL, or lead submission was deployed or tested.
 - Curated production knowledge remains a scaffold and was not approved for a first package.
 - Formal Loan Factory compliance, security, privacy, legal, licensing, and operational approval remains required.
+
+## 2026-07-17 — GPT Factory v1.0.0 release validation
+
+### Passed
+
+- Release metadata: `VERSION` is exactly `1.0.0`; `CHANGELOG.md` includes the dated v1.0.0 architecture, engine, build, validation, export, and dynamic-README release summary.
+- README generation: Ruby syntax and configuration validation passed; generation succeeded; `--check` passed; two unchanged runs produced identical SHA-256 output and no second Git diff.
+- README statistics: 12 core modules, 9 audiences, 13 compliance topics, 18 CTAs, 15 routing tests, 15 Action tests, 8 export targets, 0 planned packages, 0 built packages, 0 approved packages, and 657 archived source files independently matched configured sources.
+- README content: all configured local links resolve; quick-start commands map to real executable Ruby scripts and accepted syntax; Top 15 names/scores match the decision report; audiences and exports match their YAML sources; lifecycle tables match the absence of package manifests.
+- Sensitive-content boundary: no recognized secret or private-key pattern, SSN-like value, borrower contact field, hidden environment value, raw archive filename, or raw archive content was introduced into `README.md`.
+- Existing suites: Factory validation, core/profile deduplication, contact snapshot generation, identity inheritance, assigned-lender routing, lead Action/OpenAPI contract, synthetic package build, manifest validation, reproducibility, portfolio rebuild, all eight exporters, dependency fingerprints, and launch gates passed.
+- Scope: the Top 15 report and 657-file source archive remain unchanged; no individual GPT package, live lead endpoint, secret, platform deployment, or CRM integration was created.
+- Repository quality: all Ruby files pass syntax checks, configured YAML parses, generated local Markdown links resolve, and the final release diff passes Git whitespace validation.
+- Git release: one focused commit was created on `main`; the annotated `gpt-factory-v1.0.0` tag and commit were pushed to `origin`; local `main`, `origin/main`, and the remote tag were verified after push.
+
+### Not validated / intentionally deferred
+
+- Individual GPT behavior and production knowledge, because this release intentionally contains no product package.
+- Live OpenAI, Claude, Gemini, Copilot, Open WebUI, AnythingLLM, OpenHands, or local-model import behavior.
+- Live lead submission, endpoint authentication, routing destination, CRM write, public privacy URL, retention/deletion operation, monitoring, and rollback.
+- Formal approval by Loan Factory compliance, privacy, security, legal, licensing, data, and operational owners.

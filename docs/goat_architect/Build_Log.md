@@ -29,3 +29,11 @@
 - Added synthetic tests for reproducible builds, profile inheritance, Realtor routing, privacy gates, shared-module propagation, Apply Now suppression, and all eight platform configurations.
 - Added the dependency map, full build process, Factory governance updates, and first-build recommendation.
 - Did not create an individual GPT or deploy an Action endpoint.
+
+## 2026-07-17 — GPT Factory v1.0.0 release
+
+- Added semantic release metadata in `VERSION` and `CHANGELOG.md` for GPT Factory v1.0.0.
+- Added a validated, configuration-driven README generator and generated the root README from canonical Factory metadata, manifests, exports, portfolio reporting, licensing, and Git metadata.
+- Added an executable non-deployed lead-capture contract test and retained the existing Factory, profile, routing, package, rebuild, and deduplication controls.
+- Added README generation guidance, release governance, and an auditable v1.0.0 release report.
+- Preserved the 657-file source archive and all existing Factory architecture; no individual GPT package or live Action endpoint was created.

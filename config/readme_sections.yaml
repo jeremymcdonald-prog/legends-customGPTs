@@ -1,0 +1,96 @@
+project_title: Legends Custom GPT Factory
+mission: A reusable system for creating branded, compliant, maintainable Custom GPTs for Jeremy McDonald, The Legends Mortgage Team, loan officers, Realtor partners, consumers, and future business units.
+section_order:
+  - current_release
+  - release_status
+  - executive_overview
+  - architecture_flow
+  - repository_statistics
+  - main_capabilities
+  - supported_owner_modes
+  - supported_audiences
+  - supported_export_targets
+  - repository_map
+  - quick_start
+  - gpt_package_standard
+  - contact_and_referral_routing
+  - compliance_boundary
+  - current_portfolio
+  - current_build_status
+  - release_and_versioning
+  - safety_and_secrets
+  - documentation_links
+  - license_status
+  - maintainer
+  - footer
+folders_included_in_repository_map:
+  core: Canonical identity, audience, compliance, conversation, routing, Action, CTA, lead-capture, knowledge, test, prompt, and template modules.
+  config: Approved professional profiles and generator configuration.
+  gpts: Authorized blueprints, generated GPT packages, package templates, and planning briefs.
+  actions: Compatibility and export paths for reusable Action contracts.
+  knowledge: Curated, owned, dated knowledge approved for package selection.
+  scripts: Deterministic builders, generators, validators, and tests.
+  docs: Architecture, governance, release, QA, and portfolio documentation.
+  source_material: Immutable research archive excluded from direct GPT inheritance.
+documentation_links:
+  - label: GPT Factory Build Process
+    path: docs/GPT_FACTORY_BUILD_PROCESS.md
+  - label: Architecture
+    path: docs/goat_architect/Architecture.md
+  - label: Product Requirements
+    path: docs/goat_architect/PRD.md
+  - label: Vision
+    path: docs/goat_architect/Vision.md
+  - label: Contact and Referral Routing Standard
+    path: docs/CONTACT_AND_REFERRAL_ROUTING_STANDARD.md
+  - label: Team Member Setup Guide
+    path: docs/TEAM_MEMBER_GPT_SETUP_GUIDE.md
+  - label: Top 15 Report
+    path: docs/reports/TOP_15_CUSTOM_GPTS_REPORT.md
+  - label: Architecture Refactor Plan
+    path: docs/reports/ARCHITECTURE_REFACTOR_PLAN.md
+  - label: Core Module Dependency Map
+    path: CORE_MODULE_DEPENDENCY_MAP.md
+  - label: Lead Capture Action Documentation
+    path: core/lead_capture/README.md
+  - label: QA Log
+    path: docs/goat_architect/QA_Log.md
+  - label: Next Actions
+    path: docs/goat_architect/Next_Actions.md
+  - label: README Generation
+    path: docs/README_GENERATION.md
+  - label: v1.0.0 Release Report
+    path: docs/releases/GPT_FACTORY_V1_RELEASE_REPORT.md
+badge_labels:
+  version: GPT Factory
+  build: Build
+  validation: Validation
+  license: License
+  platform: Platforms
+statistics_sources:
+  core_modules: core
+  audiences: core/audiences/audience_profiles.yaml
+  compliance_topics: core/compliance/compliance_rules.yaml
+  ctas: core/cta/cta_library.yaml
+  routing_tests: core/shared_tests/contact_and_referral_routing_tests.md
+  action_tests: core/lead_capture/TEST_CASES.md
+  platform_exports: exporters/platforms.yaml
+  gpt_packages: gpts
+  archived_source_documents: source_material/workspace
+  portfolio_report: docs/reports/TOP_15_CUSTOM_GPTS_REPORT.md
+  identity_profile: config/profiles/jeremy_mcdonald.yaml
+  identity_pack: core/identity/identity_pack.yaml
+  package_structure: core/templates/package_structure.yaml
+excluded_paths:
+  - .git
+  - .DS_Store
+  - gpts/templates
+  - gpts/planned
+  - gpts/blueprints
+sensitive_path_patterns:
+  - '(?i)(^|/)\.env($|\.)'
+  - '(?i)(secret|credential|private[_-]?key)'
+  - '(?i)(pipeline[_-]?reconciliation|borrower[_-]?(pii|data|records))'
+maximum_current_portfolio_rows: 15
+include_generated_timestamp: true
+gpt_status_order: [planned, draft, pilot, approved, deprecated, archived]
