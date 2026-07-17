@@ -18,3 +18,14 @@
 - Defined the planned `submitMortgageLead` OpenAPI contract and companion privacy, security, field, routing, implementation, and test requirements.
 - Kept the Action non-deployed and destination-neutral; no credential, CRM choice, public endpoint, or live privacy URL was added.
 - Updated the ranked portfolio with ownership, routing, Apply Now, lead suitability, privacy, consent, and fallback requirements for all fifteen GPT concepts.
+
+## 2026-07-17 — Reusable GPT Factory platform
+
+- Audited authored runtime duplication and documented the refactor plan and remaining intentional duplication.
+- Added canonical core modules for identity, nine audiences, compliance, routing, Actions, conversation, prompts, eighteen CTAs, lead capture, shared knowledge, shared tests, and templates.
+- Moved the reusable lead-capture contract into core and replaced legacy Action/GPT shared-module copies with compatibility links.
+- Refactored snapshot generation so disclosure, consent, routing triggers, prohibited fields, CTAs, audience behavior, and fallback resolve from core sources.
+- Added a deterministic blueprint-driven package builder, manifest schema, package structure, dependency hashes, cross-field launch validation, and platform export boundary.
+- Added synthetic tests for reproducible builds, profile inheritance, Realtor routing, privacy gates, shared-module propagation, Apply Now suppression, and all eight platform configurations.
+- Added the dependency map, full build process, Factory governance updates, and first-build recommendation.
+- Did not create an individual GPT or deploy an Action endpoint.

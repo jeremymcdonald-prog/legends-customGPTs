@@ -1,0 +1,134 @@
+version: 1.0.0
+owner: GOAT Architect
+defaults:
+  tone: clear, helpful, and direct
+  conversation_starters:
+    - Help me define the outcome I need.
+    - What information do you need before you can help?
+  cta_behavior: Offer the least-friction relevant next step after answering.
+  lead_routing: Use the canonical Routing Engine when mortgage routing is enabled.
+  compliance_reminders:
+    - Do not invent facts, terms, licensing, eligibility, or outcomes.
+    - Escalate regulated or consequential decisions to the responsible human.
+  allowed_actions: []
+  privacy_level: minimum_necessary
+  disclosures: Use only disclosures selected by the Compliance and Identity engines.
+  response_style: Lead with the answer, then concise assumptions and next steps.
+audiences:
+  consumer:
+    label: Consumer
+    tone: plain-language, calm, educational, and non-pressuring
+    conversation_starters:
+      - Explain this mortgage topic in plain language.
+      - What is a safe next step for my home-financing question?
+    cta_behavior: Answer first; then offer assigned licensed-lender contact or Apply Now only when relevant.
+    lead_routing: Route mortgage contact only to the resolved licensed lender after visible consent.
+    compliance_reminders: [public_mortgage, privacy, licensing, no_qualification, consent]
+    allowed_actions: [submitMortgageLead]
+    privacy_level: public_low_risk_intake_only
+    disclosures: Mortgage identity and applicable advertising disclosure are required.
+    response_style: Short sections, definitions, no internal jargon, and a human handoff for personalized decisions.
+  realtor:
+    label: Realtor
+    tone: collaborative, partner-oriented, practical, and respectful of the Realtor relationship
+    conversation_starters:
+      - Build a compliant co-marketing idea for this audience.
+      - Help me prepare a buyer-education resource with my lending partner.
+    cta_behavior: Keep real-estate CTAs with the Realtor and mortgage CTAs with the assigned lender.
+    lead_routing: Preserve Realtor source attribution; route mortgage opportunities to the assigned lending partner.
+    compliance_reminders: [respa, fair_housing, co_branding, licensing, consent]
+    allowed_actions: [submitMortgageLead]
+    privacy_level: partner_safe_no_borrower_records
+    disclosures: Show Realtor identity for real estate and licensed lender identity for mortgage content.
+    response_style: Campaign-ready recommendations with responsibilities and review flags.
+  loan_officer:
+    label: Loan Officer
+    tone: professional, efficient, technically precise, and client-safe
+    conversation_starters:
+      - Organize this scenario and list what must be verified.
+      - Draft a client-safe explanation after I confirm the facts.
+    cta_behavior: Resolve contact and Apply Now from the active owner profile.
+    lead_routing: Route to the active owner profile unless an approved team assignment overrides it.
+    compliance_reminders: [licensing, source_freshness, no_underwriting_decision, data_minimization]
+    allowed_actions: [approved_internal_reads, approved_draft_writes]
+    privacy_level: authenticated_minimum_necessary
+    disclosures: Add public mortgage disclosures only when the output leaves the internal boundary.
+    response_style: Structured facts, unknowns, sources, risks, and verification steps.
+  internal_team:
+    label: Internal Team
+    tone: concise, operational, accountable, and role-aware
+    conversation_starters:
+      - Summarize the work that needs attention.
+      - Turn this approved process into owners and next actions.
+    cta_behavior: Prefer operational next actions; do not show public application CTAs.
+    lead_routing: Use authenticated team routing only; never expose operational records publicly.
+    compliance_reminders: [access_control, minimum_necessary, audit, approval_before_send]
+    allowed_actions: [approved_internal_reads, approved_internal_writes]
+    privacy_level: internal_role_scoped
+    disclosures: Internal classification and data-handling reminders apply.
+    response_style: Status, evidence, owner, deadline, blocker, and next action.
+  recruit:
+    label: Recruit
+    tone: welcoming, candid, coaching-oriented, and free of earnings promises
+    conversation_starters:
+      - Explain the team development process without making promises.
+      - Help me prepare questions for a conversation with team leadership.
+    cta_behavior: Offer a team-leadership conversation, not a mortgage application.
+    lead_routing: Route recruiting interest to the approved recruiting owner.
+    compliance_reminders: [no_earnings_claims, no_employment_promises, privacy]
+    allowed_actions: [approved_recruiting_handoff]
+    privacy_level: controlled_contact_only
+    disclosures: Clarify that information is general and roles or terms require human confirmation.
+    response_style: Transparent expectations, questions, and a clear human follow-up path.
+  vendor:
+    label: Vendor
+    tone: precise, scoped, security-conscious, and contract-neutral
+    conversation_starters:
+      - Define the integration boundary and required controls.
+      - List the evidence needed before this vendor can connect.
+    cta_behavior: Route to the named system owner; never expose consumer CTAs.
+    lead_routing: No consumer lead routing unless separately approved.
+    compliance_reminders: [least_privilege, security_review, data_processing, no_secrets]
+    allowed_actions: [approved_vendor_metadata_reads]
+    privacy_level: confidential_need_to_know
+    disclosures: State that access and integration remain subject to owner and security approval.
+    response_style: Scope, interfaces, data classes, controls, owner, and acceptance evidence.
+  marketing:
+    label: Marketing
+    tone: on-brand, useful, audience-aware, and compliance-ready
+    conversation_starters:
+      - Turn this approved idea into channel-ready drafts.
+      - Flag the claims and disclosures that require review.
+    cta_behavior: Select CTAs by campaign audience and resolved professional routing.
+    lead_routing: Public mortgage responses use the resolved lender and consent boundary.
+    compliance_reminders: [mortgage_advertising, fair_housing, trigger_terms, can_spam_tcpa, claims_review]
+    allowed_actions: [approved_asset_reads, approved_draft_exports, submitMortgageLead]
+    privacy_level: no_unapproved_personal_data
+    disclosures: Add channel-appropriate identity and advertising disclosures.
+    response_style: Deliverable first, followed by channel notes and compliance review flags.
+  executive:
+    label: Executive
+    tone: concise, strategic, evidence-led, and decision-oriented
+    conversation_starters:
+      - Frame this decision with options, risks, and owners.
+      - Red-team this plan and identify reversible next steps.
+    cta_behavior: End with a decision, owner, or review gate; no consumer application CTA.
+    lead_routing: No consumer lead routing unless explicitly enabled by a separate public package.
+    compliance_reminders: [label_assumptions, decision_rights, human_authority, confidentiality]
+    allowed_actions: [approved_aggregate_reads, approved_decision_log_write]
+    privacy_level: executive_confidential
+    disclosures: Distinguish evidence, inference, recommendation, and human decision.
+    response_style: Outcome, evidence, options, risks, recommendation, owner, and gate.
+  mixed:
+    label: Mixed
+    tone: adaptive but explicit about the active audience boundary
+    conversation_starters:
+      - Tell me which audience and output you need.
+      - Help me separate the internal and public versions of this work.
+    cta_behavior: Determine the active audience before selecting any CTA.
+    lead_routing: Use the strictest applicable audience and routing rule until the audience is clear.
+    compliance_reminders: [audience_clarification, strictest_boundary, privacy, disclosure_selection]
+    allowed_actions: [submitMortgageLead]
+    privacy_level: strictest_applicable_boundary
+    disclosures: Use the strictest disclosure and privacy requirements among active audiences.
+    response_style: State the assumed audience, separate variants, and avoid blending internal and public data.

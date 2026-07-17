@@ -1,0 +1,30 @@
+gpt_id: REQUIRED_GPT_ID
+slug: required-gpt-slug
+name: REQUIRED_GPT_NAME
+version: 0.1.0
+status: planned
+purpose: REQUIRED_BOUNDED_BUSINESS_OUTCOME
+scope:
+  - REQUIRED_ALLOWED_WORKFLOW
+output_contract:
+  - REQUIRED_DELIVERABLE
+owner_type: jeremy
+owner_profile_id: REQUIRED_ACTIVE_PROFILE_ID
+audience: Executive
+assigned_lending_partner_profile_id:
+mortgage_routing_enabled: false
+lead_capture_enabled: false
+public_or_internal: internal
+compliance_level: standard
+privacy_policy_required: false
+apply_now_behavior: no_application_link
+capabilities:
+  browsing: false
+  image_generation: false
+  code_interpreter: false
+actions: []
+knowledge_folders: []
+conversation_starters:
+  - REQUIRED_STARTER_ONE
+  - REQUIRED_STARTER_TWO
+platform: openai_gpts

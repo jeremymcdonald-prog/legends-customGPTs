@@ -1,0 +1,205 @@
+openapi: 3.1.0
+info:
+  title: Legends Mortgage Lead Capture API
+  version: 0.1.0-planned
+  description: Planned contract for consented, low-risk mortgage lead handoff. This is not a mortgage application or approval system.
+  x-privacy-policy-url: https://REPLACE-BEFORE-LAUNCH.example.invalid/privacy
+servers:
+  - url: https://lead-api.example.invalid
+    description: Non-routable placeholder; replace only after security and compliance approval.
+paths:
+  /v1/mortgage-leads:
+    post:
+      operationId: submitMortgageLead
+      summary: Submit a consented mortgage inquiry to its validated licensed loan officer.
+      security:
+        - actionApiKey: []
+      parameters:
+        - name: X-Idempotency-Key
+          in: header
+          required: true
+          description: Unique non-PII key used to prevent duplicate submissions.
+          schema:
+            type: string
+            minLength: 16
+            maxLength: 128
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MortgageLeadRequest'
+      responses:
+        '201':
+          description: Lead accepted and assigned.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MortgageLeadResponse'
+        '400':
+          description: Invalid or excessive input.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Missing or invalid Action authentication.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Duplicate lead submission.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Inactive, missing, or invalid owner/lending-partner assignment.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Submission was not completed.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  securitySchemes:
+    actionApiKey:
+      type: apiKey
+      in: header
+      name: X-API-Key
+      description: Configure only in the GPT Action settings and server-side secret manager.
+  schemas:
+    MortgageLeadRequest:
+      type: object
+      additionalProperties: false
+      required:
+        - first_name
+        - last_name
+        - email
+        - phone
+        - preferred_contact_method
+        - inquiry_type
+        - buy_or_refinance
+        - property_state
+        - estimated_timeframe
+        - message
+        - source_gpt_id
+        - owner_profile_id
+        - assigned_lending_partner_profile_id
+        - consent_to_contact
+        - consent_timestamp
+      properties:
+        first_name:
+          type: string
+          minLength: 1
+          maxLength: 80
+        last_name:
+          type: string
+          minLength: 1
+          maxLength: 80
+        email:
+          type: string
+          format: email
+          maxLength: 254
+        phone:
+          type: string
+          minLength: 7
+          maxLength: 32
+        preferred_contact_method:
+          type: string
+          enum: [phone, text, email]
+        inquiry_type:
+          type: string
+          enum: [general_consultation, preapproval_question, payment_scenario, first_time_buyer, refinance, investment_property, other]
+        buy_or_refinance:
+          type: string
+          enum: [buy, refinance, undecided]
+        property_state:
+          type: string
+          pattern: '^[A-Z]{2}$'
+        estimated_timeframe:
+          type: string
+          minLength: 1
+          maxLength: 100
+        message:
+          type: string
+          minLength: 1
+          maxLength: 1000
+        source_gpt_id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        owner_profile_id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        assigned_lending_partner_profile_id:
+          type: string
+          minLength: 1
+          maxLength: 100
+        consent_to_contact:
+          type: boolean
+          const: true
+        consent_timestamp:
+          type: string
+          format: date-time
+        first_time_buyer:
+          type: boolean
+        veteran_status:
+          type: string
+          enum: [yes, no, prefer_not_to_say]
+        estimated_credit_range:
+          type: string
+          enum: [below_580, 580_to_619, 620_to_679, 680_to_739, 740_or_above, unknown, prefer_not_to_say]
+        estimated_purchase_price:
+          type: number
+          minimum: 0
+          maximum: 100000000
+        estimated_down_payment_range:
+          type: string
+          maxLength: 100
+    MortgageLeadResponse:
+      type: object
+      additionalProperties: false
+      required: [success, lead_id, assigned_loan_officer_name, next_step, apply_now_url, contact_phone, contact_email]
+      properties:
+        success:
+          type: boolean
+          const: true
+        lead_id:
+          type: string
+        assigned_loan_officer_name:
+          type: string
+        next_step:
+          type: string
+        apply_now_url:
+          type: string
+          format: uri
+        contact_phone:
+          type: string
+        contact_email:
+          type: string
+          format: email
+    ErrorResponse:
+      type: object
+      additionalProperties: false
+      required: [success, error_code, message]
+      properties:
+        success:
+          type: boolean
+          const: false
+        error_code:
+          type: string
+        message:
+          type: string

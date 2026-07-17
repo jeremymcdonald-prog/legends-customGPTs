@@ -1,0 +1,29 @@
+version: 1.0.0
+owner: GOAT Architect
+raw_source_root: source_material
+approved_root: knowledge
+required_metadata: [owner, source, effective_date, last_reviewed_date, next_review_date, jurisdictions, replacement_path]
+stale_behavior: Do not use the claim; explain the limit and hand off to the responsible human.
+domains:
+  shared:
+    path: knowledge/shared
+    status: scaffold
+  mortgage:
+    path: knowledge/mortgage
+    status: scaffold
+  real_estate:
+    path: knowledge/real_estate
+    status: scaffold
+  marketing:
+    path: knowledge/marketing
+    status: scaffold
+  compliance:
+    path: knowledge/compliance
+    status: scaffold
+  business:
+    path: knowledge/business
+    status: scaffold
+selection_rules:
+  - A blueprint may select only registered domains or explicitly approved documents.
+  - Raw source material cannot be mounted directly into a generated assistant.
+  - Public packages fail validation when selected volatile knowledge is stale or unowned.

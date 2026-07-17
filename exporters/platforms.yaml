@@ -1,0 +1,51 @@
+version: 1.0.0
+owner: GOAT Architect
+platforms:
+  openai_gpts:
+    label: OpenAI GPTs
+    adapter_status: ready_for_manual_upload
+    instruction_target: instructions.md
+    knowledge_target: knowledge/
+    action_format: OpenAPI
+  claude_projects:
+    label: Claude Projects
+    adapter_status: planned
+    instruction_target: project_instructions
+    knowledge_target: project_knowledge
+    action_format: MCP_or_connector
+  gemini_gems:
+    label: Gemini Gems
+    adapter_status: planned
+    instruction_target: gem_instructions
+    knowledge_target: gem_files
+    action_format: platform_specific
+  microsoft_copilot_agents:
+    label: Microsoft Copilot Agents
+    adapter_status: planned
+    instruction_target: agent_instructions
+    knowledge_target: knowledge_sources
+    action_format: connector_or_flow
+  open_webui_assistants:
+    label: Open WebUI Assistants
+    adapter_status: planned
+    instruction_target: system_prompt
+    knowledge_target: knowledge_collection
+    action_format: tool_server
+  anythingllm:
+    label: AnythingLLM
+    adapter_status: planned
+    instruction_target: workspace_prompt
+    knowledge_target: workspace_documents
+    action_format: agent_flow
+  openhands:
+    label: OpenHands
+    adapter_status: planned
+    instruction_target: agent_instructions
+    knowledge_target: repository_context
+    action_format: tool_configuration
+  local_llm:
+    label: Local LLM assistants
+    adapter_status: planned
+    instruction_target: system_prompt
+    knowledge_target: local_retrieval_index
+    action_format: local_tool_gateway

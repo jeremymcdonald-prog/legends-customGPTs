@@ -11,3 +11,6 @@
 9. Active profiles, approved public contact data, and current licensing/service-area ownership have not been established for team loan officers or Realtors.
 10. The lead-capture system owner, downstream destination, public privacy-policy URL, retention/deletion schedule, and human follow-up SLA are not selected.
 11. `submitMortgageLead` is an architecture contract only; no endpoint, authentication configuration, privacy approval, threat review, or end-to-end test environment exists.
+12. Platform adapters other than the generic OpenAI manual-upload mapping are prepared but not implemented against live platform builders.
+13. The blueprint registry can rebuild all authorized packages, but selective affected-package rebuilds from dependency hashes are not yet automated.
+14. Curated production knowledge remains a scaffold; the first blueprint requires owned, dated pipeline knowledge before generation.

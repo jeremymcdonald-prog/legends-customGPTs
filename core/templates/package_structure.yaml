@@ -1,0 +1,28 @@
+version: 1.0.0
+required_files:
+  - README.md
+  - manifest.md
+  - instructions.md
+  - conversation_starters.md
+  - changelog.md
+  - compliance/checklist.md
+  - tests/factory_acceptance_tests.yaml
+  - tests/contact_and_referral_routing_tests.md
+required_directories:
+  - knowledge
+  - generated
+  - tests
+  - actions
+  - compliance
+  - examples
+generated_snapshots:
+  - generated/contact_profile.md
+  - generated/referral_routing.md
+  - generated/compliance_identity.md
+  - generated/call_to_action_library.md
+  - generated/audience_profile.md
+  - generated/compliance_snapshot.md
+  - generated/conversation_profile.md
+  - generated/lead_capture_profile.md
+  - generated/factory_dependencies.yaml
+  - generated/platform_export.md

@@ -1,42 +1,40 @@
-# Legends Custom GPTs
+# Legends GPT Factory
 
-Reusable factory for creating compliant, branded, maintainable Custom GPTs for Jeremy McDonald, The Legends Mortgage Team, loan officers, and real estate partners.
+A reusable, platform-neutral factory for generating branded, compliant, maintainable assistants for Jeremy McDonald, The Legends Mortgage Team, loan officers, Realtor partners, and future business units.
 
 ## Start here
 
-1. Read [`AGENTS.md`](AGENTS.md).
-2. Read the repository memory in [`docs/goat_architect/`](docs/goat_architect/).
-3. Review the portfolio decision in [`docs/reports/TOP_15_CUSTOM_GPTS_REPORT.md`](docs/reports/TOP_15_CUSTOM_GPTS_REPORT.md).
-4. Use [`gpts/templates/README.md`](gpts/templates/README.md) before creating a GPT package.
-5. Use [`docs/CONTACT_AND_REFERRAL_ROUTING_STANDARD.md`](docs/CONTACT_AND_REFERRAL_ROUTING_STANDARD.md) and [`docs/TEAM_MEMBER_GPT_SETUP_GUIDE.md`](docs/TEAM_MEMBER_GPT_SETUP_GUIDE.md) before assigning an owner or enabling mortgage routing.
+1. Read [`AGENTS.md`](AGENTS.md) and the architecture memory in [`docs/goat_architect/`](docs/goat_architect/).
+2. Review [`CORE_MODULE_DEPENDENCY_MAP.md`](CORE_MODULE_DEPENDENCY_MAP.md).
+3. Follow [`docs/GPT_FACTORY_BUILD_PROCESS.md`](docs/GPT_FACTORY_BUILD_PROCESS.md).
+4. Create a blueprint from `core/templates/gpt_blueprint.template.yaml` only after an individual GPT build is authorized.
+5. Run the factory validator and tests before generating or reviewing a package.
 
-## Repository map
+```bash
+ruby scripts/validate_gpt_factory.rb
+ruby scripts/test_contact_snapshot_generation.rb
+ruby scripts/test_gpt_factory.rb
+ruby scripts/rebuild_all_gpts.rb --dry-run
+```
 
-- `docs/goat_architect/` — vision, requirements, architecture, decisions, logs, and next actions.
-- `docs/reports/` — source inventory, ranked portfolio, and consolidation decisions.
-- `source_material/` — preserved first-party Markdown sources from the Legends workspace.
-- `knowledge/` — curated shared and domain knowledge, not raw source dumps.
-- `gpts/` — reusable template and future GPT packages.
-- `actions/` — reviewed Action schemas and safe examples.
-- `config/` — centralized professional profiles and reusable non-secret templates.
-- `scripts/` — deterministic snapshot generation and local validation.
-- `assets/` — approved non-secret brand assets added later.
-- `archive/` — retired packages and superseded decisions.
+## Architecture
+
+- `core/` — canonical identity, audience, compliance, conversation, routing, Action, CTA, lead-capture, knowledge, test, prompt, and template modules.
+- `config/profiles/` — the only approved person-specific identity and lending-assignment store.
+- `exporters/` — platform-specific packaging for OpenAI, Claude, Gemini, Copilot, Open WebUI, AnythingLLM, OpenHands, and local assistants.
+- `gpts/` — generated packages and the human template entry point; no shared module is authored here.
+- `knowledge/` — curated, approved domain knowledge registered by the core knowledge engine.
+- `actions/` — compatibility/export paths; canonical reusable Action behavior lives in core.
+- `scripts/` — deterministic builder, snapshot generator, validator, and tests.
+- `docs/` — architecture, audit reports, decisions, QA, and launch governance.
+- `source_material/` — immutable research; never inherited directly by a production assistant.
+
+## Build model
+
+A blueprint selects identity, audience, knowledge, capabilities, Actions, routing, compliance, CTA, conversation, lead-capture, and platform. The builder validates those relationships, creates the standard package, generates resolved snapshots, and records SHA-256 dependency hashes. `scripts/rebuild_all_gpts.rb` regenerates every authorized blueprint after one canonical change, without manual multi-file edits.
 
 ## Current status
 
-Foundation and portfolio research only. No individual GPT package is built or approved for launch yet.
+The GPT Factory platform is implemented. No individual GPT was built or approved for launch in this refactor. Lead capture remains a non-deployed contract with placeholder endpoint/privacy configuration and mandatory launch gates.
 
-The lead-capture Action is a planned contract only. It has no deployed endpoint, live credential, selected CRM destination, or launch-approved privacy URL.
-
-## Compliance identity
-
-When applicable to consumer-facing mortgage content:
-
-> Loan Factory, Inc., NMLS 320841.
->
-> Jeremy McDonald, NMLS 1195266.
->
-> Equal Housing Opportunity.
-
-This repository must never state or imply guaranteed approval, rates, payments, savings, or terms.
+Mortgage identity and disclosure text are always generated from the active profile and `core/identity/identity_pack.yaml`. This repository must never imply guaranteed approval, rates, payments, savings, qualification, or terms.

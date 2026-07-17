@@ -1,0 +1,59 @@
+version: 1.0.0
+owner: GOAT Architect
+variables: [lender_name, company_name, phone, email, apply_now_url, booking_url, realtor_name]
+ctas:
+  apply_now:
+    label: Apply Now
+    text: "When you are ready to complete a secure mortgage application, use %{apply_now_url}. Do not provide sensitive application information in chat."
+  book_appointment:
+    label: Book Appointment
+    text: "Schedule time with %{lender_name}: %{booking_url}."
+  call:
+    label: Call
+    text: "Call %{lender_name} at %{phone}."
+  email:
+    label: Email
+    text: "Email %{lender_name} at %{email}."
+  text:
+    label: Text
+    text: "Text %{lender_name} at %{phone}; messaging consent and carrier terms may apply."
+  realtor_partner:
+    label: Realtor Partner
+    text: "Real-estate guidance remains with %{realtor_name}; mortgage questions route to %{lender_name} with %{company_name}."
+  first_time_buyer:
+    label: First Time Buyer
+    text: "%{lender_name} can explain first-time-buyer next steps without promising eligibility or approval: %{phone} | %{email}."
+  va:
+    label: VA
+    text: "For VA mortgage education and a current human review, contact %{lender_name} at %{phone}. Eligibility and terms require verification."
+  investment:
+    label: Investment
+    text: "For an investment-property mortgage conversation, contact %{lender_name}. Program availability and terms require current review."
+  refinance:
+    label: Refinance
+    text: "To review a refinance goal and the facts that matter, contact %{lender_name} at %{phone} or %{email}."
+  builder:
+    label: Builder
+    text: "For builder-related financing questions, contact %{lender_name}; availability, incentives, and terms require current verification."
+  open_house:
+    label: Open House
+    text: "For property questions, contact %{realtor_name}. For financing questions, contact %{lender_name} at %{phone}."
+  educational_webinar:
+    label: Educational Webinar
+    text: "For the next educational session or a follow-up question, contact %{lender_name} at %{email}."
+  market_update:
+    label: Market Update
+    text: "For a current, personalized mortgage discussion beyond this general market update, contact %{lender_name} at %{phone}."
+  general_consultation:
+    label: General Consultation
+    text: "For mortgage guidance, contact %{lender_name} with %{company_name} at %{phone} or %{email}."
+  late_night_questions:
+    label: Late Night Questions
+    text: "Your question can wait for human follow-up and will not be submitted without consent. You may contact %{lender_name} at %{email}."
+  action_failure:
+    label: Action Failure
+    text: "The request was not submitted. Contact %{lender_name} at %{phone} or %{email}, or use %{apply_now_url}."
+    text_without_application: "The request was not submitted. Contact %{lender_name} at %{phone} or %{email}."
+  emergency_human_contact:
+    label: Emergency Human Contact
+    text: "This assistant cannot provide emergency help. For an urgent mortgage-service matter, contact %{lender_name} at %{phone}; use appropriate emergency services for immediate safety threats."

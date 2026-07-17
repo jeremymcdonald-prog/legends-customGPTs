@@ -1,0 +1,18 @@
+version: 1.0.0
+owner: GOAT Architect
+order:
+  - core/identity/identity_pack.yaml
+  - core/audiences/audience_profiles.yaml
+  - core/compliance/compliance_rules.yaml
+  - core/conversation/conversation_engine.yaml
+  - core/routing/routing_rules.yaml
+  - core/cta/cta_library.yaml
+  - core/lead_capture/lead_capture_engine.yaml
+  - core/actions/action_policy.yaml
+  - core/shared_knowledge/knowledge_registry.yaml
+  - package_blueprint
+  - platform_exporter
+conflict_policy:
+  immutable_controls: [identity_source, safety, privacy, compliance, routing, consent]
+  package_may_override: [purpose, bounded_workflow, output_format, selected_knowledge, enabled_capabilities]
+  platform_may_override: [field_names, file_packaging, size_limits, upload_instructions]

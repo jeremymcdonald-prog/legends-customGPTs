@@ -7,22 +7,33 @@ require "tmpdir"
 require "yaml"
 
 module ContactSnapshots
-  GENERATED_NOTICE = "<!-- GENERATED FILE — DO NOT EDIT. Update the source YAML profile and regenerate. -->"
+  REPO_ROOT = File.expand_path("..", __dir__)
+  GENERATED_NOTICE = "<!-- GENERATED FILE — DO NOT EDIT. Regenerate from the Legends GPT Factory sources. -->"
   LENDER_TYPES = %w[team_leader loan_officer].freeze
   REALTOR_FIELDS = %w[profile_id profile_type full_name professional_title brokerage_name license_number mobile email website service_area brand_voice assigned_lending_partner_profile_id active].freeze
   LENDER_FIELDS = %w[profile_id profile_type full_name professional_title team_role team_name company_name mobile email personal_website team_website individual_nmls company_nmls apply_now_url equal_housing_required active].freeze
-  SENSITIVE_ITEMS = "Social Security numbers, bank account numbers, credit card numbers, passwords, full dates of birth, tax returns, bank statements, government IDs, or uploaded financial documents"
 
   module_function
 
-  def load_profile(path)
-    profile = YAML.safe_load(File.read(path), permitted_classes: [], permitted_symbols: [], aliases: false)
-    raise "Profile must be a YAML mapping: #{path}" unless profile.is_a?(Hash)
+  def load_yaml(path)
+    data = YAML.safe_load(File.read(path), permitted_classes: [], permitted_symbols: [], aliases: false)
+    raise "YAML root must be a mapping: #{path}" unless data.is_a?(Hash)
 
-    profile.transform_keys(&:to_s)
+    data.transform_keys(&:to_s)
+  end
+
+  def core_modules(core_dir)
+    {
+      identity: load_yaml(File.join(core_dir, "identity/identity_pack.yaml")),
+      cta: load_yaml(File.join(core_dir, "cta/cta_library.yaml")),
+      routing: load_yaml(File.join(core_dir, "routing/routing_rules.yaml")),
+      lead_capture: load_yaml(File.join(core_dir, "lead_capture/lead_capture_engine.yaml")),
+      audiences: load_yaml(File.join(core_dir, "audiences/audience_profiles.yaml"))
+    }
   end
 
   def validate_profile!(profile)
+    raise "Invalid profile_id" unless profile["profile_id"].to_s.match?(/\A[a-z0-9_]+\z/)
     fields = profile["profile_type"] == "realtor" ? REALTOR_FIELDS : LENDER_FIELDS
     missing = fields.select { |field| !profile.key?(field) || profile[field].nil? || profile[field].to_s.strip.empty? }
     raise "Missing required profile fields: #{missing.join(', ')}" unless missing.empty?
@@ -35,13 +46,17 @@ module ContactSnapshots
     %w[individual_nmls company_nmls].each do |field|
       raise "#{field} must contain digits only" unless profile[field].to_s.match?(/\A\d+\z/)
     end
+    %w[personal_website team_website apply_now_url].each do |field|
+      raise "#{field} must use HTTPS" unless profile[field].to_s.start_with?("https://")
+    end
   end
 
   def resolve(profiles_dir:, owner_profile_id:, assigned_lending_partner_profile_id: nil)
+    raise "Invalid owner profile ID" unless owner_profile_id.to_s.match?(/\A[a-z0-9_]+\z/)
     owner_path = File.join(profiles_dir, "#{owner_profile_id}.yaml")
     raise "Owner profile not found: #{owner_path}" unless File.file?(owner_path)
 
-    owner = load_profile(owner_path)
+    owner = load_yaml(owner_path)
     validate_profile!(owner)
     raise "Profile ID does not match filename" unless owner["profile_id"] == owner_profile_id
 
@@ -51,11 +66,12 @@ module ContactSnapshots
                    assigned_lending_partner_profile_id
                  end
     lender = owner
-    if partner_id
+    if partner_id && !partner_id.to_s.empty?
+      raise "Invalid assigned lending partner profile ID" unless partner_id.to_s.match?(/\A[a-z0-9_]+\z/)
       partner_path = File.join(profiles_dir, "#{partner_id}.yaml")
       raise "Assigned lending partner profile not found: #{partner_path}" unless File.file?(partner_path)
 
-      lender = load_profile(partner_path)
+      lender = load_yaml(partner_path)
       validate_profile!(lender)
       raise "Assigned lending partner must be a lending profile" unless LENDER_TYPES.include?(lender["profile_type"])
       raise "Assigned lending partner profile ID does not match filename" unless lender["profile_id"] == partner_id
@@ -66,20 +82,55 @@ module ContactSnapshots
     [owner, lender]
   end
 
-  def compliance_line(lender)
-    "#{lender['company_name']}, NMLS #{lender['company_nmls']}. #{lender['full_name']}, NMLS #{lender['individual_nmls']}. Equal Housing Opportunity."
+  def format_template(template, values)
+    format(template, values.transform_keys(&:to_sym))
+  rescue KeyError => error
+    raise "Template variable missing: #{error.message}"
   end
 
-  def consent_prompt(lender)
-    "Your information will be sent securely to #{lender['full_name']} with #{lender['company_name']} so they can respond to your mortgage request. Would you like me to submit it?"
+  def template_values(owner, lender)
+    {
+      lender_name: lender["full_name"],
+      company_name: lender["company_name"],
+      phone: lender["mobile"],
+      email: lender["email"],
+      apply_now_url: lender["apply_now_url"],
+      booking_url: lender["booking_url"],
+      realtor_name: owner["profile_type"] == "realtor" ? owner["full_name"] : "the consumer's real estate professional"
+    }
   end
 
-  def render_contact(owner, lender)
+  def compliance_line(lender, modules)
+    format_template(modules[:identity].fetch("formatting").fetch("compliance_disclosure"), lender)
+  end
+
+  def consent_prompt(lender, modules)
+    format_template(modules[:lead_capture].fetch("consent_prompt"), lender_name: lender["full_name"], company_name: lender["company_name"])
+  end
+
+  def rendered_ctas(owner, lender, modules, apply_now_behavior)
+    values = template_values(owner, lender)
+    modules[:cta].fetch("ctas").each_with_object({}) do |(key, entry), rendered|
+      next if key == "book_appointment" && values[:booking_url].to_s.empty?
+      next if key == "apply_now" && apply_now_behavior == "no_application_link"
+
+      template = if key == "action_failure" && apply_now_behavior == "no_application_link"
+                   entry.fetch("text_without_application")
+                 else
+                   entry.fetch("text")
+                 end
+      rendered[key] = { "label" => entry.fetch("label"), "text" => format_template(template, values) }
+    end
+  end
+
+  def render_contact(owner, lender, apply_now_behavior)
     owner_lines = if owner["profile_type"] == "realtor"
                     [owner["full_name"], owner["professional_title"], owner["brokerage_name"], owner["mobile"], owner["email"], owner["website"], "License: #{owner['license_number']}"]
                   else
                     [owner["full_name"], owner["professional_title"], owner["team_role"], owner["team_name"], owner["company_name"], owner["mobile"], owner["email"], owner["personal_website"], owner["team_website"]]
                   end
+    lender_lines = [lender["full_name"], lender["professional_title"], "#{lender['team_role']}, #{lender['team_name']}", lender["company_name"], lender["mobile"], lender["email"], lender["personal_website"], lender["team_website"]]
+    lender_lines << "Apply Now: #{lender['apply_now_url']}" unless apply_now_behavior == "no_application_link"
     <<~MARKDOWN
       #{GENERATED_NOTICE}
       # Contact profile
@@ -90,98 +141,90 @@ module ContactSnapshots
 
       ## Licensed mortgage contact
 
-      - #{lender['full_name']}
-      - #{lender['professional_title']}
-      - #{lender['team_role']}, #{lender['team_name']}
-      - #{lender['company_name']}
-      - #{lender['mobile']}
-      - #{lender['email']}
-      - #{lender['personal_website']}
-      - #{lender['team_website']}
-      - Apply Now: #{lender['apply_now_url']}
+      #{lender_lines.map { |line| "- #{line}" }.join("\n")}
     MARKDOWN
   end
 
-  def render_compliance(lender)
+  def render_compliance(lender, modules)
     <<~MARKDOWN
       #{GENERATED_NOTICE}
       # Compliance identity
 
-      #{compliance_line(lender)}
+      #{compliance_line(lender, modules)}
 
-      Use this approved identity for applicable consumer-facing mortgage content. Do not add a `#` before either NMLS number.
+      Source: `core/identity/identity_pack.yaml` plus the active licensed profile. Do not hand-edit this disclosure.
     MARKDOWN
   end
 
-  def render_ctas(owner, lender)
-    realtor = owner["profile_type"] == "realtor" ? owner["full_name"] : "the consumer's real estate professional"
+  def resolved_audience(modules, audience_label)
+    return nil unless audience_label
+
+    key = audience_label.downcase.tr(" ", "_")
+    selected = modules[:audiences].fetch("audiences").fetch(key) { raise "Unsupported audience: #{audience_label}" }
+    modules[:audiences].fetch("defaults").merge(selected)
+  end
+
+  def render_ctas(owner, lender, modules, apply_now_behavior, audience_label)
+    sections = rendered_ctas(owner, lender, modules, apply_now_behavior).values.map do |entry|
+      "## #{entry['label']}\n\n#{entry['text']}"
+    end
+    audience = resolved_audience(modules, audience_label)
+    audience_rule = audience ? "Audience CTA behavior: #{audience.fetch('cta_behavior')}" : "Audience CTA behavior: resolve from the package Audience Engine snapshot."
     <<~MARKDOWN
       #{GENERATED_NOTICE}
       # Call-to-action library
 
-      ## General consultation
-      For mortgage guidance, contact #{lender['full_name']} with #{lender['company_name']} at #{lender['mobile']} or #{lender['email']}.
+      Source: `core/cta/cta_library.yaml` plus the resolved audience and licensed profile.
 
-      ## Apply Now
-      When you are ready to complete a secure mortgage application, use #{lender['apply_now_url']}. Do not provide sensitive application information in this chat.
+      #{audience_rule}
 
-      ## First-time buyer
-      First-time buyer questions are welcome. #{lender['full_name']} can explain possible next steps without promising eligibility or approval: #{lender['mobile']} | #{lender['email']}.
-
-      ## Refinance
-      To review a refinance goal and the facts that matter, contact #{lender['full_name']} at #{lender['mobile']} or #{lender['email']}.
-
-      ## Investment property
-      For an investment-property mortgage conversation, contact #{lender['full_name']}. Program availability and terms require current human review.
-
-      ## Realtor co-marketing
-      Real estate guidance remains with #{realtor}. For mortgage and preapproval questions, use #{lender['full_name']} with #{lender['company_name']}
-
-      ## Open house
-      For property questions, contact #{realtor}. For financing or payment questions, contact #{lender['full_name']} at #{lender['mobile']}.
-
-      ## Payment scenario
-      #{lender['full_name']} can review a payment scenario using current, verified assumptions. Any estimate is educational until reviewed through the official lending process.
-
-      ## Late-night inquiry
-      Your question can be saved for follow-up, but it will not be submitted without your explicit consent. You may also contact #{lender['full_name']} at #{lender['email']}.
-
-      ## Action failure
-      The request was not submitted. Contact #{lender['full_name']} directly at #{lender['mobile']} or #{lender['email']}, or use the secure Apply Now link: #{lender['apply_now_url']}.
+      #{sections.join("\n\n")}
     MARKDOWN
   end
 
-  def render_routing(owner, lender)
+  def render_routing(owner, lender, modules, apply_now_behavior, audience_label)
+    triggers = modules[:routing].fetch("mortgage_triggers").map { |item| item.tr("_", " ") }.join(", ")
+    sensitive = modules[:lead_capture].fetch("prohibited_fields").map { |item| item.tr("_", " ") }.join(", ")
+    fallback = rendered_ctas(owner, lender, modules, apply_now_behavior).fetch("action_failure").fetch("text")
+    application_line = apply_now_behavior == "no_application_link" ? "- Application link: disabled by manifest." : "- Apply Now: #{lender['apply_now_url']}"
+    audience = resolved_audience(modules, audience_label)
+    audience_line = audience ? "- Audience routing: #{audience.fetch('lead_routing')}" : "- Audience routing: resolve from the package Audience Engine snapshot."
     <<~MARKDOWN
       #{GENERATED_NOTICE}
       # Referral routing
 
       - Owner profile: `#{owner['profile_id']}` (#{owner['profile_type']})
       - Assigned licensed lender: `#{lender['profile_id']}` — #{lender['full_name']}, #{lender['company_name']}
-      - Mortgage questions, financing, preapproval, payment scenarios, Apply Now requests, and mortgage leads route to the assigned licensed lender.
-      - Apply Now: #{lender['apply_now_url']}
+      - Mortgage triggers: #{triggers}.
+      #{audience_line}
+      #{application_line}
 
-      Before any lead submission, display this exact resolved prompt and wait for a clear affirmative response:
+      Before any lead submission, display this resolved prompt and wait for a clear affirmative response:
 
-      > #{consent_prompt(lender)}
+      > #{consent_prompt(lender, modules)}
 
-      Never request or submit #{SENSITIVE_ITEMS}. A lead submission is not an application, preapproval, approval, rate lock, or lending commitment.
+      Never request or submit: #{sensitive}. A lead submission is not an application, preapproval, approval, rate lock, or lending commitment.
 
-      If the Action fails, state that the request was not submitted and provide #{lender['full_name']} at #{lender['mobile']}, #{lender['email']}, and #{lender['apply_now_url']}.
+      Action failure fallback: #{fallback}
     MARKDOWN
   end
 
-  def generate(profiles_dir:, owner_profile_id:, output_dir:, assigned_lending_partner_profile_id: nil)
+  def generate(profiles_dir:, owner_profile_id:, output_dir:, assigned_lending_partner_profile_id: nil, core_dir: File.join(REPO_ROOT, "core"), apply_now_behavior: nil, audience_label: nil)
+    modules = core_modules(core_dir)
     owner, lender = resolve(
       profiles_dir: profiles_dir,
       owner_profile_id: owner_profile_id,
       assigned_lending_partner_profile_id: assigned_lending_partner_profile_id
     )
+    behavior = apply_now_behavior || (owner["profile_type"] == "realtor" ? "show_assigned_lender_link" : "show_owner_link")
+    allowed_behaviors = modules[:routing].fetch("apply_now_behaviors").keys
+    raise "Unsupported apply_now_behavior: #{behavior}" unless allowed_behaviors.include?(behavior)
+
     documents = {
-      "contact_profile.md" => render_contact(owner, lender),
-      "compliance_identity.md" => render_compliance(lender),
-      "call_to_action_library.md" => render_ctas(owner, lender),
-      "referral_routing.md" => render_routing(owner, lender)
+      "contact_profile.md" => render_contact(owner, lender, behavior),
+      "compliance_identity.md" => render_compliance(lender, modules),
+      "call_to_action_library.md" => render_ctas(owner, lender, modules, behavior, audience_label),
+      "referral_routing.md" => render_routing(owner, lender, modules, behavior, audience_label)
     }
 
     FileUtils.mkdir_p(output_dir)
@@ -189,17 +232,24 @@ module ContactSnapshots
       documents.each { |name, content| File.write(File.join(temporary, name), content) }
       documents.each_key { |name| FileUtils.mv(File.join(temporary, name), File.join(output_dir, name), force: true) }
     end
+    documents.keys
   end
 end
 
 if $PROGRAM_NAME == __FILE__
-  options = { profiles_dir: File.expand_path("../config/profiles", __dir__) }
+  options = {
+    profiles_dir: File.join(ContactSnapshots::REPO_ROOT, "config/profiles"),
+    core_dir: File.join(ContactSnapshots::REPO_ROOT, "core")
+  }
   parser = OptionParser.new do |opts|
     opts.banner = "Usage: generate_contact_snapshots.rb --owner-profile ID --output-dir PATH [options]"
     opts.on("--owner-profile ID", "Active owner profile ID") { |value| options[:owner_profile_id] = value }
     opts.on("--profiles-dir PATH", "Directory containing profile YAML files") { |value| options[:profiles_dir] = value }
+    opts.on("--core-dir PATH", "Factory core directory") { |value| options[:core_dir] = value }
     opts.on("--output-dir PATH", "Target gpts/<slug>/generated directory") { |value| options[:output_dir] = value }
-    opts.on("--assigned-lending-partner-profile-id ID", "Assigned lender for a team-shared package") { |value| options[:assigned_lending_partner_profile_id] = value }
+    opts.on("--assigned-lending-partner-profile-id ID", "Assigned lender for Realtor or team-shared routing") { |value| options[:assigned_lending_partner_profile_id] = value }
+    opts.on("--apply-now-behavior VALUE", "Apply Now behavior from the Routing Engine") { |value| options[:apply_now_behavior] = value }
+    opts.on("--audience LABEL", "Audience Engine label") { |value| options[:audience_label] = value }
   end
   parser.parse!
   parser.abort("Missing --owner-profile") unless options[:owner_profile_id]

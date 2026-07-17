@@ -2,7 +2,7 @@
 
 ## Phase 0 — Governance foundation
 
-Approve package standard, naming, shared compliance identity, public/internal policy, knowledge owners, and measurement plan.
+Approve the Factory blueprint, core-module versions, audience, naming, generated dependency fingerprint, public/internal policy, knowledge owners, and measurement plan.
 
 ## Phase 1 — Internal proof
 
@@ -26,4 +26,4 @@ Only after the earlier phases are stable, pilot a bounded Borrower Education & L
 
 ## Release gates
 
-Business owner, knowledge owner, security/data owner, and compliance reviewer sign off; all tests pass; monitoring and rollback exist; launch scope and audience are documented.
+Business owner, knowledge owner, security/data owner, and compliance reviewer sign off; Factory and package tests pass; generated files match the dependency fingerprint; monitoring and rollback exist; launch scope, audience, platform, and data boundary are documented.

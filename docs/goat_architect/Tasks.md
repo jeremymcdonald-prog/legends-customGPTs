@@ -29,3 +29,13 @@
 - [ ] Select and approve the lead destination, external API owner, public privacy policy, and retention/deletion process.
 - [ ] Run Loan Factory compliance approval.
 - [ ] Publish any GPT.
+
+## GPT Factory refactor
+
+- [x] Audit authored identity, audience, compliance, routing, CTA, lead-capture, template, and test duplication.
+- [x] Create all required `core/` modules and module READMEs.
+- [x] Centralize the Identity Pack, nine-audience engine, compliance checklist, conversation lifecycle, routing rules, 18 CTAs, and lead-capture engine.
+- [x] Add blueprint, manifest schema, package structure, dependency graph, and platform exporters.
+- [x] Implement deterministic package generation, cross-field validation, dependency fingerprints, and synthetic build tests.
+- [x] Replace legacy shared-module copies with compatibility references to core.
+- [x] Complete final factory validation, commit, and push.

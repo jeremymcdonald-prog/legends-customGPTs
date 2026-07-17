@@ -39,3 +39,23 @@
 
 - **Decision:** Define the `submitMortgageLead` contract and launch gates without deploying an endpoint or selecting a CRM. A future implementation will use a small authenticated API/serverless facade with a replaceable approved destination adapter.
 - **Reason:** The reviewed sources reference multiple downstream systems and do not establish one current system of record. The routing, consent, validation, and audit boundary can be governed before that operational decision.
+
+## D-009 — Core-first GPT Factory
+
+- **Decision:** Every future GPT inherits identity, audience, compliance, conversation, routing, Action policy, CTA, lead capture, shared knowledge rules, shared tests, and templates from canonical `core/` modules.
+- **Reason:** Package-local copies create drift and make portfolio-wide updates unsafe. One build graph makes change propagation testable.
+
+## D-010 — Generated packages with dependency fingerprints
+
+- **Decision:** Authorized packages are produced by a deterministic builder, and every build records SHA-256 hashes of all selected core modules and profiles.
+- **Reason:** Generated snapshots are necessary for platform upload and reproducibility, while dependency hashes prove exactly what a package inherited and when a rebuild is required.
+
+## D-011 — Audience Engine as a required manifest dimension
+
+- **Decision:** Every blueprint selects exactly one of nine canonical audiences. Mixed contexts inherit the strictest active boundary until clarified.
+- **Reason:** Tone, privacy, Actions, disclosures, routing, CTA, and response style are behavioral controls, not optional copywriting preferences.
+
+## D-012 — Platform-neutral core and replaceable exporters
+
+- **Decision:** Platform differences live only in `exporters/`; core modules and blueprints remain portable.
+- **Reason:** New assistant platforms should require an adapter, not a fork of regulated business logic.

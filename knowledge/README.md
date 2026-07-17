@@ -1,8 +1,8 @@
 # Curated knowledge
 
-Only reviewed, owned, dated knowledge belongs here. Raw research remains in `source_material/`.
+Only reviewed, owned, dated knowledge registered in `core/shared_knowledge/knowledge_registry.yaml` belongs here. Raw research remains in `source_material/` and is never inherited directly.
 
-- `shared/` — identity, voice, glossary, handoff, provenance, capability standards.
+- `shared/` — approved cross-domain glossary, handoff, provenance, and capability knowledge; identity and behavior remain in `core/`.
 - `mortgage/` — approved product education and operational references.
 - `real_estate/` — Fair Housing-safe listing and partner material.
 - `marketing/` — brand, channel, content, and asset standards.

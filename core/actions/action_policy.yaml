@@ -1,0 +1,15 @@
+version: 1.0.0
+owner: GOAT Architect
+defaults:
+  enabled: false
+  authentication: server_side_only
+  secrets: prohibited_in_repository
+  least_privilege: required
+  input_validation: server_side_allowlist
+  output_minimization: required
+  audit: payload_free_event_metadata
+  idempotency: required_for_writes
+  human_confirmation: required_for_consequential_write_or_send
+  failure_behavior: disclose_failure_and_offer_safe_handoff
+  timeout_behavior: do_not_claim_success
+launch_gates: [business_owner, technical_owner, security_review, privacy_review, compliance_review, test_evidence, monitoring, rollback]

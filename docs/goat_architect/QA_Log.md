@@ -56,3 +56,30 @@ Commit hash, clean-worktree proof, remote non-divergence, and push status are re
 - No secret or authentication value was created or configured.
 - No team-member or Realtor production profile was supplied, so only Jeremy's production profile and synthetic temporary routing fixtures were tested.
 - Loan Factory compliance, privacy, security, legal, licensing, data-retention, and operational owners have not approved a public launch.
+
+## 2026-07-17 — GPT Factory refactor validation
+
+### Passed
+
+- Core structure: all twelve required modules exist and each contains a README; canonical YAML and JSON files parse successfully.
+- Identity deduplication: Jeremy's phone, email, personal website, team website, Apply Now URL, and both NMLS values occur only in the approved profile outside the immutable source archive.
+- Shared-source deduplication: CTA library, routing engine, compliance checklist, lead-capture engine, and OpenAPI each have one regular canonical runtime source; legacy paths are valid symbolic compatibility links.
+- Audience Engine: exactly nine required audiences resolve every required tone, starter, CTA, routing, compliance, Action, privacy, disclosure, and response-style property.
+- Shared engines: thirteen compliance topics, one inherited checklist, twelve conversation stages, eighteen CTA variants, ten lead-capture behaviors, fifteen routing tests, and fifteen Action contract tests are present.
+- Manifest/OpenAPI: the manifest template satisfies its schema; builder manifests pass schema and cross-field rules; the OpenAPI operation, fifteen required request fields, unknown-field rejection, consent gate, and prohibited-field exclusion pass.
+- Snapshot generation: profile inheritance, Realtor-to-lender routing, generated disclosure, consent, all applicable CTAs, Apply Now suppression, inactive/missing assignment failure, and one-source regeneration pass.
+- Factory build: a synthetic temporary package contains every required file, directory, and generated snapshot; no production package was created.
+- Reproducibility: identical inputs produce the same package tree digest; changing a shared core module changes the dependency fingerprint.
+- Portfolio propagation: the blueprint registry rebuilds every registered synthetic package and validates all blueprints before writing.
+- Export boundary: all eight declared platform configurations validate and produce the correct generated export mapping without changing core behavior.
+- Security and repository quality: authored Markdown links resolve, secret-pattern scan passes, no sensitive lead field is exposed by OpenAPI, and compatibility links resolve.
+- Scope and preservation: zero individual GPT package directories exist, the Top 15 report still contains fifteen recommendations, and `source_material/` has no staged change.
+- Clean build: all Ruby files pass syntax checks; the complete staged diff passes `git diff --cached --check`.
+
+### Not validated / intentionally deferred
+
+- Behavior of an individual GPT was not evaluated because this refactor intentionally created no production blueprint or package.
+- No live OpenAI, Claude, Gemini, Copilot, Open WebUI, AnythingLLM, OpenHands, or local-model import was attempted.
+- No Action endpoint, authentication, destination adapter, CRM, live privacy URL, or lead submission was deployed or tested.
+- Curated production knowledge remains a scaffold and was not approved for a first package.
+- Formal Loan Factory compliance, security, privacy, legal, licensing, and operational approval remains required.

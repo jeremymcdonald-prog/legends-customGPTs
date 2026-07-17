@@ -1,0 +1,24 @@
+version: 1.0.0
+owner: GOAT Architect
+deployed: false
+operation_id: submitMortgageLead
+openapi: core/lead_capture/openapi.yaml
+field_mapping: core/lead_capture/FIELD_MAPPING.md
+routing: core/lead_capture/ROUTING_LOGIC.md
+privacy: core/lead_capture/PRIVACY_REQUIREMENTS.md
+security: core/lead_capture/SECURITY_REQUIREMENTS.md
+tests: core/lead_capture/TEST_CASES.md
+consent_prompt: "Your information will be sent securely to %{lender_name} with %{company_name} so they can respond to your mortgage request. Would you like me to submit it?"
+behaviors:
+  - Answer the consumer's question before offering lead submission.
+  - Ask only for the minimum approved fields needed for follow-up.
+  - Identify the full name and company of the licensed recipient.
+  - Display the resolved consent prompt and require an affirmative response.
+  - Call the Action only after explicit consent.
+  - Confirm the lead ID and assigned loan officer only after success.
+  - Return contact and Apply Now options from the validated response.
+  - On failure, state that submission did not occur and provide generated fallback contact.
+  - Never describe submission as an application, preapproval, approval, rate lock, or commitment.
+  - Never state or imply that a consumer qualifies.
+prohibited_fields: [social_security_number, bank_account_number, credit_card_number, password, full_date_of_birth, tax_return, bank_statement, government_id, uploaded_financial_documents]
+fallback_cta: action_failure

@@ -1,0 +1,26 @@
+version: 1.0.0
+owner: GOAT Architect
+mortgage_triggers: [mortgage, financing, preapproval, payment_scenario, apply_now, mortgage_lead]
+owner_types:
+  jeremy:
+    recipient_source: owner_profile_id
+    required_owner_profile_type: team_leader
+  loan_officer:
+    recipient_source: owner_profile_id
+    required_owner_profile_type: loan_officer
+  realtor:
+    recipient_source: assigned_lending_partner_profile_id
+    required_owner_profile_type: realtor
+    preserve_owner_real_estate_identity: true
+  team_shared:
+    recipient_source: assigned_lending_partner_profile_id_or_approved_endpoint
+    fail_closed_without_recipient: true
+apply_now_behaviors:
+  show_owner_link: Resolve the active licensed owner profile's Apply Now URL.
+  show_assigned_lender_link: Resolve the active assigned lender profile's Apply Now URL.
+  no_application_link: Do not display an application URL.
+guards:
+  - Reject inactive or missing profile references.
+  - Never silently substitute a different recipient.
+  - Require server-side assignment validation for live submission.
+  - Preserve source owner and referral attribution.

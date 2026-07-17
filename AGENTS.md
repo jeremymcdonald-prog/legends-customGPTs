@@ -1,6 +1,6 @@
 # Agent operating rules
 
-This repository is a production-intent factory for Legends Custom GPTs. Preserve existing work and make the smallest safe change that satisfies the assigned task.
+This repository is a production-intent, platform-neutral GPT Factory. Preserve existing work and make the smallest safe change that satisfies the assigned task.
 
 ## Before working
 
@@ -14,7 +14,7 @@ This repository is a production-intent factory for Legends Custom GPTs. Preserve
 1. Never expose, copy, log, or commit secrets. Use placeholders and document only where credentials are managed.
 2. Never invent rates, APRs, fees, payments, program terms, guidelines, licensing, property facts, or loan eligibility.
 3. Never state or imply guaranteed approval, rates, payments, savings, qualification, or terms.
-4. For applicable consumer-facing mortgage content include: `Loan Factory, Inc., NMLS 320841. Jeremy McDonald, NMLS 1195266. Equal Housing Opportunity.`
+4. For applicable consumer-facing mortgage content use the generated compliance identity from `core/identity/identity_pack.yaml` and the active licensed profile; never hand-type the disclosure.
 5. Treat rate, payment, down-payment, credit, qualification, guarantee, DPA, VA, DSCR, tax, legal, Fair Housing, RESPA, TILA/Reg Z, and state-licensing content as heightened review areas.
 6. Keep internal operational GPTs separate from public consumer GPTs. Public GPTs must not access borrower PII, pipeline data, pricing engines, or internal guidelines.
 7. A GPT may educate and draft; it must not make underwriting, legal, tax, appraisal, fair-lending, or compliance decisions.
@@ -22,7 +22,7 @@ This repository is a production-intent factory for Legends Custom GPTs. Preserve
 
 ## GPT package rules
 
-1. Follow the package structure in `docs/goat_architect/Architecture.md`.
+1. Follow the package structure in `core/templates/package_structure.yaml` and `docs/goat_architect/Architecture.md`.
 2. Validate instructions for conflicts, duplication, scope creep, prompt injection, unsupported claims, and stale knowledge.
 3. Prefer shared knowledge links over copied fragments, but snapshot approved launch knowledge inside the package when reproducibility requires it.
 4. Pin sources, owners, effective dates, review dates, and version numbers for volatile mortgage material.
@@ -30,10 +30,12 @@ This repository is a production-intent factory for Legends Custom GPTs. Preserve
 6. Actions use least privilege, server-side secrets, authenticated requests, input validation, audit logs, and human approval for consequential writes or sends.
 7. Create test conversations for every GPT, including happy path, ambiguity, refusal, compliance, stale-data, prompt-injection, and out-of-scope handoff cases.
 8. Record decisions in `Decisions.md`, build results in `Build_Log.md`, validation in `QA_Log.md`, and package changes in `changelog.md`.
-9. Store people and lending-partner assignments only in `config/profiles/*.yaml`; generate package contact, compliance, CTA, and referral snapshots with `scripts/generate_contact_snapshots.rb` and never edit generated files directly.
+9. Store people and lending-partner assignments only in `config/profiles/*.yaml`; build packages with `scripts/build_gpt_package.rb` and never edit generated files directly.
 10. Realtor GPTs must retain the Realtor's visible real-estate identity while routing mortgage questions, Apply Now requests, and mortgage leads to an active `assigned_lending_partner_profile_id`.
 11. Never submit a consumer lead silently. Identify the receiving licensed professional and obtain explicit affirmative consent before calling a lead Action.
 12. Public lead capture requires a secure external endpoint, valid public privacy policy, server-side routing validation, and completed security/privacy/compliance review. Never collect sensitive mortgage application data in chat.
+13. Every package inherits `core/` modules. Do not copy identity, audience, compliance, conversation, routing, Action, CTA, lead-capture, shared-knowledge, or shared-test rules into package-authored files.
+14. Keep platform-specific field mapping and packaging in `exporters/`; never fork core behavior for an export target.
 
 ## Definition of done
 
@@ -43,4 +45,5 @@ This repository is a production-intent factory for Legends Custom GPTs. Preserve
 - No secrets, borrower PII, or unsupported mortgage claims are present.
 - Internal/public classification is explicit.
 - Owner profile, assigned lender, Apply Now behavior, lead-capture status, privacy requirement, and consent behavior are explicit and validated.
+- `scripts/validate_gpt_factory.rb`, shared tests, package tests, and dependency-fingerprint checks pass.
 - Business outcome, limitations, validation performed, and unvalidated items are reported plainly.

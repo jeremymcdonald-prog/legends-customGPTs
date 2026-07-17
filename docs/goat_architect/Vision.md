@@ -1,19 +1,21 @@
 # Vision
 
-Build a reusable factory for creating compliant, branded, maintainable Custom GPTs for Jeremy McDonald, The Legends Mortgage Team, loan officers, and real estate agents.
+Build one reusable Legends GPT Factory that can generate hundreds of branded, compliant, maintainable assistants without copying identity, audience, compliance, routing, CTA, conversation, lead-capture, knowledge, or test logic.
 
-The repository turns scattered prompts, playbooks, knowledge documents, and experiments into governed GPT packages with a consistent structure, shared knowledge, explicit capability choices, compliance controls, tests, version history, and launch evidence.
+The factory converts an approved blueprint into a validated package with centralized inheritance, generated snapshots, dependency hashes, shared tests, version history, and launch evidence. A shared-source change is made once and propagated by deterministic regeneration.
 
 ## Desired outcome
 
-- High-value internal assistants reduce operational work without exposing borrower data.
-- Partner-facing assistants strengthen Realtor relationships and produce compliant co-marketing drafts.
-- Public assistants provide bounded education and reliable human handoff without quoting unsupported terms or making eligibility decisions.
-- Every GPT can be maintained by updating owned, dated knowledge instead of rewriting an opaque prompt.
-- Jeremy receives business outcomes and proof, not requests to inspect technical implementation.
+- Jeremy, team members, and partners receive assistants with the correct identity, audience behavior, licensed routing, privacy boundary, and human handoff by default.
+- Public mortgage assistants remain bounded education and safe handoff systems, never qualification or underwriting systems.
+- Internal assistants reduce operational work without leaking borrower or internal data.
+- Realtor assistants preserve the Realtor relationship while routing mortgage activity to the assigned licensed lender.
+- OpenAI GPTs, Claude Projects, Gemini Gems, Microsoft Copilot Agents, Open WebUI, AnythingLLM, OpenHands, and local assistants share the same core and differ only in export packaging.
+- Maintainers update owned, dated sources instead of rewriting opaque package prompts.
 
 ## Non-goals
 
-- Building all proposed GPTs at once.
-- Replacing licensed loan officers, processors, underwriters, compliance staff, attorneys, tax professionals, or real estate professionals.
-- Storing live credentials, borrower PII, or unapproved pricing and guideline data in GPT knowledge files.
+- Building an individual GPT during the Factory refactor.
+- Deploying the lead-capture endpoint or selecting a CRM.
+- Replacing licensed professionals or compliance, security, legal, tax, appraisal, or underwriting authority.
+- Storing secrets, borrower PII, or unapproved live mortgage data in repository files.

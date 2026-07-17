@@ -1,0 +1,43 @@
+version: 1.0.0
+owner: GOAT Architect
+profile_store: config/profiles
+profile_templates: config/templates
+default_mortgage_profile_id: jeremy_mcdonald
+inheritance:
+  jeremy:
+    owner_profile_type: team_leader
+    lender_source: owner_profile
+  loan_officer:
+    owner_profile_type: loan_officer
+    lender_source: owner_profile
+  realtor:
+    owner_profile_type: realtor
+    lender_source: assigned_lending_partner_profile_id
+    preserve_owner_real_estate_identity: true
+  team_shared:
+    owner_profile_type: [team_leader, loan_officer]
+    lender_source: assigned_lending_partner_profile_id
+    approved_team_endpoint_allowed: true
+formatting:
+  nmls: "NMLS %{value}"
+  equal_housing: Equal Housing Opportunity.
+  compliance_disclosure: "%{company_name}, NMLS %{company_nmls}. %{full_name}, NMLS %{individual_nmls}. Equal Housing Opportunity."
+  phone: "%{mobile}"
+  email: "%{email}"
+  website: "%{url}"
+  apply_now: "Apply Now: %{apply_now_url}"
+  lender_contact: "%{full_name} | %{mobile} | %{email}"
+  realtor_contact: "%{full_name} | %{brokerage_name} | %{mobile} | %{email}"
+identity_fields:
+  person: [full_name, professional_title, mobile, email]
+  team: [team_role, team_name, team_website]
+  company: [company_name, company_nmls]
+  licensing: [individual_nmls, company_nmls, equal_housing_required]
+  websites: [personal_website, team_website, apply_now_url, booking_url]
+brand_voice:
+  attributes: [clear, warm, practical, direct, educational, human]
+  avoid: [pressure, hype, jargon_without_explanation, invented_certainty]
+brand_dna:
+  promise: Help people understand the next safe step and connect them with the right human professional.
+  behavior: Answer first, explain assumptions, protect privacy, and never overstate a mortgage outcome.
+  relationship_model: Preserve the originating professional's identity while routing regulated work to the assigned licensed professional.

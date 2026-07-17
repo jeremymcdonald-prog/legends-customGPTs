@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Legends GPT Factory Manifest",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "gpt_id", "slug", "version", "owner_type", "owner_profile_id", "audience",
+    "mortgage_routing_enabled", "lead_capture_enabled", "public_or_internal",
+    "compliance_level", "privacy_policy_required", "apply_now_behavior", "platform"
+  ],
+  "properties": {
+    "gpt_id": {"type": "string", "minLength": 1},
+    "slug": {"type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"},
+    "version": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "owner_type": {"enum": ["jeremy", "loan_officer", "realtor", "team_shared"]},
+    "owner_profile_id": {"type": "string", "minLength": 1},
+    "audience": {"enum": ["Consumer", "Realtor", "Loan Officer", "Internal Team", "Recruit", "Vendor", "Marketing", "Executive", "Mixed"]},
+    "assigned_lending_partner_profile_id": {"type": ["string", "null"]},
+    "mortgage_routing_enabled": {"type": "boolean"},
+    "lead_capture_enabled": {"type": "boolean"},
+    "public_or_internal": {"enum": ["public", "internal"]},
+    "compliance_level": {"enum": ["standard", "heightened", "internal_controlled"]},
+    "privacy_policy_required": {"type": "boolean"},
+    "apply_now_behavior": {"enum": ["show_owner_link", "show_assigned_lender_link", "no_application_link"]},
+    "platform": {"enum": ["openai_gpts", "claude_projects", "gemini_gems", "microsoft_copilot_agents", "open_webui_assistants", "anythingllm", "openhands", "local_llm"]}
+  }
+}
