@@ -1,0 +1,3 @@
+# Profile image prompt
+
+Create a square 1024x1024 PNG profile icon for a Custom GPT named “Legends Loan Officer AI Twin.” Premium modern professional Legends visual family: deep charcoal-to-navy background, warm copper/gold highlights, refined cyan accent. Centered symbolic composition showing an abstract human-centered AI assistant as a faceless geometric presence beside a home-and-mortgage workflow, with subtle connected nodes. Helpful technology, never a portrait, clean dimensional vector/3D hybrid, high contrast, generous safe padding, crisp at 48px. No words, no letters, no numbers, no logos, no lender marks, no watermark, no realistic person, no face, no headshot, no likeness. Use-case: stylized-concept Custom GPT profile icon.

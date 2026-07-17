@@ -23,8 +23,8 @@
 
 ## Deferred by mission boundary
 
-- [ ] Build GPT package 1.
-- [ ] Curate production knowledge from raw source material.
+- [x] Build GPT package 1 and the remaining nine-package Jeremy portfolio.
+- [x] Curate production knowledge from relevant raw source material into bounded package bundles.
 - [ ] Implement or connect Custom Actions.
 - [ ] Select and approve the lead destination, external API owner, public privacy policy, and retention/deletion process.
 - [ ] Run Loan Factory compliance approval.
@@ -39,3 +39,14 @@
 - [x] Implement deterministic package generation, cross-field validation, dependency fingerprints, and synthetic build tests.
 - [x] Replace legacy shared-module copies with compatibility references to core.
 - [x] Complete final factory validation, commit, and push.
+
+## Jeremy’s Custom GPTs v0.1
+
+- [x] Register ten Jeremy-owned blueprints.
+- [x] Build all ten packages through Factory v1.0.0.
+- [x] Curate and source-map ten package upload bundles.
+- [x] Add 28 package tests and a complete GOAT Architect handoff per GPT.
+- [x] Generate, inspect, and record ten distinct profile images.
+- [x] Rebuild and run all Factory, routing, lead-contract, link, secret, and README checks.
+- [ ] Create the GPTs manually in ChatGPT and run live Preview conversations.
+- [ ] Obtain human approval before Pilot, sharing, or public release.

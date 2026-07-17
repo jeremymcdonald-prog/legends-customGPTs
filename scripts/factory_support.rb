@@ -331,7 +331,8 @@ module LegendsFactory
       starters = (Array(audience.fetch("conversation_starters")) + Array(blueprint["conversation_starters"])).uniq
       write(File.join(package, "conversation_starters.md"), "#{GENERATED_NOTICE}\n# Conversation starters\n\n#{starters.map { |item| "- #{item}" }.join("\n")}\n")
       write(File.join(package, "knowledge/README.md"), "#{GENERATED_NOTICE}\n# Knowledge selection\n\n#{blueprint.fetch('knowledge_folders').map { |item| "- `#{item}` from the shared knowledge registry" }.join("\n")}\n")
-      write(File.join(package, "actions/README.md"), "#{GENERATED_NOTICE}\n# Actions\n\n#{blueprint.fetch('actions').map { |item| "- `#{item}` governed by `core/actions/action_policy.yaml`" }.join("\n")}\n")
+      action_lines = blueprint.fetch("actions").empty? ? "- No Actions configured." : blueprint.fetch("actions").map { |item| "- `#{item}` governed by `core/actions/action_policy.yaml`" }.join("\n")
+      write(File.join(package, "actions/README.md"), "#{GENERATED_NOTICE}\n# Actions\n\n#{action_lines}\n")
       if blueprint.fetch("actions").include?("submitMortgageLead")
         FileUtils.cp(File.join(core_dir, "lead_capture/openapi.yaml"), File.join(package, "actions/openapi.yaml"))
       end

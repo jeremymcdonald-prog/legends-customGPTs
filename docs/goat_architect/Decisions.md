@@ -69,3 +69,13 @@
 
 - **Decision:** Mark the reusable Factory architecture as v1.0.0 and tag it `gpt-factory-v1.0.0` without building an individual GPT or deploying lead capture.
 - **Reason:** The governed core, builders, validation, routing, export boundary, and documentation constitute a stable Factory release; product packages and live integrations require separate approval and release gates.
+
+## D-015 — Ten-product portfolio with consolidated Builder runtime uploads
+
+- **Decision:** Build Jeremy’s first ten packages through Factory v1.0.0, keep their authored product knowledge separate from generated runtime projections, and upload one generated runtime bundle plus nine curated knowledge files per GPT.
+- **Reason:** This preserves canonical identity and shared-engine inheritance, gives the ChatGPT Builder the full binding runtime behavior, avoids hand-copied profile values, and keeps every package at ten focused uploads without mounting the raw source archive.
+
+## D-016 — Manual, Action-free initial deployment
+
+- **Decision:** Mark all ten packages Ready for manual ChatGPT setup while leaving Actions, production connections, sends, publishing, writes, and public-release status disabled.
+- **Reason:** Repository validation can prove package completeness and safety wiring, but pilot, approval, sharing, and live behavior require human Builder setup and test conversations.

@@ -1,0 +1,3 @@
+# Profile image prompt
+
+Create a square 1024x1024 PNG profile icon for a Custom GPT named “Legends Borrower Education & Lead Concierge.” Premium modern professional Legends visual family: deep charcoal-to-navy background, warm copper/gold highlights, welcoming sky-blue accent. Centered symbolic composition combining a clear illuminated pathway leading to a home, an open guidebook, and a small compass motif. Calm, accessible, trustworthy, clean dimensional vector/3D hybrid, high contrast, generous safe padding, crisp at 48px. No words, no letters, no numbers, no logos, no lender marks, no watermark, no people, no faces, no portrait. Use-case: stylized-concept Custom GPT profile icon.

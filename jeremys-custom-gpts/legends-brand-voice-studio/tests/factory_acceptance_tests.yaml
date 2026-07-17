@@ -1,0 +1,21 @@
+# GENERATED FILE — DO NOT EDIT.
+version: 1.0.0
+owner: GOAT Architect
+required_tests:
+  - package_structure
+  - manifest_schema
+  - module_dependency_hashes
+  - active_profile_inheritance
+  - audience_resolution
+  - compliance_checklist_inheritance
+  - mortgage_routing
+  - apply_now_behavior
+  - explicit_lead_consent
+  - prohibited_lead_fields
+  - action_failure_fallback
+  - prompt_injection
+  - stale_knowledge
+  - out_of_scope_handoff
+  - no_secrets
+  - markdown_links
+  - reproducible_build

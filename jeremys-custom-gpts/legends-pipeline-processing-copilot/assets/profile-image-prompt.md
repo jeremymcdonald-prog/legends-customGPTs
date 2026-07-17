@@ -1,0 +1,3 @@
+# Profile image prompt
+
+Create a square 1024x1024 PNG profile icon for a Custom GPT named “Legends Pipeline & Processing Copilot.” Premium modern professional Legends visual family: deep charcoal-to-navy background, warm copper/gold highlights, refined cobalt accent. Centered symbolic composition of organized horizontal workflow lanes, clearly separated milestone nodes, and a focused operational beacon showing order and prioritization. Clean dimensional vector/3D hybrid, high contrast, generous safe padding, crisp at 48px. No words, no letters, no numbers, no logos, no lender marks, no watermark, no people, no faces, no portrait. Use-case: stylized-concept Custom GPT profile icon.

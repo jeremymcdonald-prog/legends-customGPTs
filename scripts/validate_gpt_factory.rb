@@ -81,11 +81,15 @@ unique_fields = %w[mobile email personal_website team_website apply_now_url indi
 authored_files = Dir[File.join(root, "**/*")].select do |path|
   File.file?(path) && !File.symlink?(path) && !path.include?("/.git/") && !path.include?("/source_material/") && !path.include?("/config/profiles/")
 end
-dedup_files = authored_files.reject { |path| path == File.join(root, "README.md") }
+dedup_files = authored_files.reject do |path|
+  path == File.join(root, "README.md") ||
+    path.match?(%r{/jeremys-custom-gpts/[^/]+/generated/})
+end
 unique_fields.each do |field|
   value = profile.fetch(field).to_s
-  # README.md is a generated projection of the canonical profile, not another
-  # authored identity source. It remains in link and secret validation below.
+  # README.md and package generated/ snapshots are projections of the canonical
+  # profile, not additional authored identity sources. They remain in link and
+  # secret validation below.
   hits = dedup_files.select { |path| File.binread(path).include?(value) rescue false }
   assert(hits.empty?, "central profile value duplicated outside profile store: #{field} in #{hits.map { |path| Pathname(path).relative_path_from(Pathname(root)) }.join(', ')}")
 end

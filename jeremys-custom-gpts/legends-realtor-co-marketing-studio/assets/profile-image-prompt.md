@@ -1,0 +1,3 @@
+# Profile image prompt
+
+Create a square 1024x1024 PNG profile icon for a Custom GPT named “Legends Realtor Co-Marketing & Partner Growth Studio.” Premium modern professional Legends visual family: deep charcoal-to-navy background, warm copper/gold highlights, refined teal accent. Centered symbolic composition combining an elegant home outline, a partnership handshake motif, and a subtle campaign-card grid. Clean dimensional vector/3D hybrid, high contrast, generous safe padding, crisp silhouette readable at 48px. No words, no letters, no numbers, no logos, no lender marks, no watermark, no people, no faces, no portrait. Use-case: stylized-concept Custom GPT profile icon.

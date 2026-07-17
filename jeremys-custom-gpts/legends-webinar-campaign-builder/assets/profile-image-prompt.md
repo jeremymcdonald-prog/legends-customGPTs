@@ -1,0 +1,3 @@
+# Profile image prompt
+
+Create a square 1024x1024 PNG profile icon for a Custom GPT named “Legends Webinar Campaign Builder.” Premium modern professional Legends visual family: deep charcoal-to-navy background, warm copper/gold highlights, refined amber accent. Centered symbolic composition of a presentation screen on a minimal stage, a small abstract audience of geometric points, and campaign-flow nodes wrapping around the screen. Polished educational event energy, clean dimensional vector/3D hybrid, high contrast, generous safe padding, crisp at 48px. No words, no letters, no numbers, no logos, no lender marks, no watermark, no people, no faces, no portrait. Use-case: stylized-concept Custom GPT profile icon.

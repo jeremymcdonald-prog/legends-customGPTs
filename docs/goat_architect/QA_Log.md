@@ -104,3 +104,24 @@ Commit hash, clean-worktree proof, remote non-divergence, and push status are re
 - Live OpenAI, Claude, Gemini, Copilot, Open WebUI, AnythingLLM, OpenHands, or local-model import behavior.
 - Live lead submission, endpoint authentication, routing destination, CRM write, public privacy URL, retention/deletion operation, monitoring, and rollback.
 - Formal approval by Loan Factory compliance, privacy, security, legal, licensing, data, and operational owners.
+
+## 2026-07-17 — Jeremy’s Custom GPTs v0.1 validation
+
+### Passed
+
+- Portfolio shape: exactly ten expected GPT folders exist; every package contains the Factory standard plus all required Builder, handoff, deployment, user, release, knowledge, Action, test, example, and asset files.
+- Manifests: all ten blueprints and manifests validate; every owner is `jeremy_mcdonald`; public/internal audience rules, compliance levels, disabled lead capture, empty Action lists, and Apply Now behavior pass Factory cross-field validation.
+- Identity and routing: package projections regenerate from the canonical profile; the exact approved compliance identity is present; Realtor-facing mortgage routing resolves to Jeremy; internal packages contain no Apply Now URL.
+- Knowledge: 100 exact Builder uploads are selected, ten per GPT; every upload exists; every package has nine curated files including index, source map, freshness review, product boundary, workflow, templates, safety, playbook, and checklist; no raw source archive is mounted.
+- Tests and handoffs: 280 package cases exist, 28 per GPT; all required categories are present; every handoff contains all 32 required fields and exact upload order; every package includes one complete Builder copy/paste sheet.
+- Actions and privacy: live lead capture is false everywhere; no endpoint is deployed; public future-Action notes require privacy and explicit consent; internal future-Action notes require authentication, least privilege, audit logging, synthetic validation, and human approval before writes.
+- Images: all ten generated profile images were visually inspected; each opens as a distinct symbolic image with no Jeremy likeness or fake lender logo; both package exports are PNG, square, and 1254 × 1254; prompts, artifact paths, and SHA-256 values are recorded.
+- Repository validation: Factory validation, manifest/deduplication/link/secret checks, Factory reproducibility tests, contact/routing tests, lead-capture contract tests, ten-blueprint temporary rebuild, portfolio rebuild, and dynamic README `--check` all passed.
+- Scope: the source archive and v1.0.0 core architecture were preserved; two small Factory repairs exempt generated package projections from authored-identity deduplication and render an explicit empty-Action line without trailing whitespace.
+
+### Not validated / intentionally deferred
+
+- No GPT was created in the live ChatGPT Builder, so live model behavior and Builder UI import remain untested.
+- No package is Pilot, Approved, shared publicly, or published to the GPT Store.
+- No live Action, API, CRM, borrower record, production pipeline, email send, registration, pricing/guideline source, or system write was connected or tested.
+- Formal Loan Factory product, compliance, privacy, security, legal, licensing, and operational approval remains required before pilot or sharing.

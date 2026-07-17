@@ -1,0 +1,3 @@
+# Profile image prompt
+
+Create a square 1024x1024 PNG profile icon for a Custom GPT named “Legends Executive AI Boardroom.” Premium modern professional Legends visual family: deep charcoal-to-navy background, warm copper/gold highlights, refined royal-purple accent. Centered symbolic composition of a circular strategic decision table viewed slightly from above, surrounded by several distinct analytical lens nodes and a subtle command-center halo. Executive, evidence-led, sophisticated, clean dimensional vector/3D hybrid, high contrast, generous safe padding, crisp at 48px. No words, no letters, no numbers, no logos, no lender marks, no watermark, no people, no faces, no portrait. Use-case: stylized-concept Custom GPT profile icon.

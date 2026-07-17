@@ -37,3 +37,13 @@
 - Added an executable non-deployed lead-capture contract test and retained the existing Factory, profile, routing, package, rebuild, and deduplication controls.
 - Added README generation guidance, release governance, and an auditable v1.0.0 release report.
 - Preserved the 657-file source archive and all existing Factory architecture; no individual GPT package or live Action endpoint was created.
+
+## 2026-07-17 — Jeremy’s Custom GPTs v0.1 portfolio
+
+- Built ten Jeremy-owned GPT packages from registered YAML blueprints into `jeremys-custom-gpts/` using the existing Factory composition path.
+- Curated nine focused knowledge files per package with indexes, source maps, freshness records, explicit exclusions, and a ten-file Builder upload plan.
+- Consolidated the binding generated identity, compliance, CTA, routing, audience, conversation, and disabled lead-capture projections into one generated Builder runtime upload per package.
+- Added 28 package-specific test conversations, a 32-field GOAT Architect handoff, Builder copy/paste payload, deployment checklist, user guide, release notes, and Action boundary for every GPT.
+- Generated and visually inspected ten distinct symbolic profile images; all are square 1254 × 1254 PNG files with prompts, original artifact paths, and SHA-256 records.
+- Kept live Actions, endpoint deployment, autonomous publishing/sending, production data access, and system writes disabled.
+- Finished all packages as Built, Validated, and Ready for manual ChatGPT setup; none is Pilot, Approved, or Publicly released.

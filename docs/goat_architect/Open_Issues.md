@@ -13,4 +13,4 @@
 11. `submitMortgageLead` is an architecture contract only; no endpoint, authentication configuration, privacy approval, threat review, or end-to-end test environment exists.
 12. Platform adapters other than the generic OpenAI manual-upload mapping are prepared but not implemented against live platform builders.
 13. The blueprint registry can rebuild all authorized packages, but selective affected-package rebuilds from dependency hashes are not yet automated.
-14. Curated production knowledge remains a scaffold; the first blueprint requires owned, dated pipeline knowledge before generation.
+14. Ten curated v0.1 knowledge bundles are locally validated, but each still requires human product/compliance review in the live ChatGPT Builder before pilot or sharing.

@@ -1,0 +1,3 @@
+# Profile image prompt
+
+Create a square 1024x1024 PNG profile icon for a Custom GPT named “Legends Brand Voice & AI Twin Studio.” Premium modern professional Legends visual family: deep charcoal-to-navy background, warm copper/gold highlights, refined violet accent. Centered symbolic composition combining a luminous sound wave, a speech-mark shape, and an abstract fingerprint made of flowing voice lines. Sophisticated identity and consistency theme, clean dimensional vector/3D hybrid, high contrast, generous safe padding, crisp at 48px. No words, no letters, no numbers, no logos, no lender marks, no watermark, no people, no faces, no portrait. Use-case: stylized-concept Custom GPT profile icon.
