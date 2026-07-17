@@ -1,0 +1,129 @@
+# LegendsOS 2.0 — Setup
+
+## Prerequisites
+
+- Node 18.18+ (project pins Node 20 for Netlify builds)
+- npm 9+
+- A Supabase project (free tier works for local dev)
+
+## 1. Install
+
+```bash
+npm install
+```
+
+## 2. Configure environment
+
+```bash
+cp .env.example .env.local
+```
+
+Required to boot at all:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+Required for server-side privileged operations (admin reads, automation jobs,
+service-role audit writes):
+
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Optional but recommended:
+
+- `NEXT_PUBLIC_OWNER_EMAIL` (defaults to `jeremy@mcdonald-mtg.com`)
+- AI provider keys: `OPENROUTER_API_KEY`, `DEEPSEEK_API_KEY`, `FAL_KEY`
+- `N8N_WEBHOOK_BASE_URL` plus per-workflow URLs (`N8N_WEBHOOK_SOCIAL_PUBLISH`, `N8N_WEBHOOK_EMAIL_SEND`, etc.). HMAC has been removed — plain JSON POSTs.
+
+Safety flags default to `false` — flip them only when you are ready for live
+external actions:
+
+- `ALLOW_LIVE_SOCIAL_PUBLISH`
+- `ALLOW_LIVE_EMAIL_SEND`
+- `ALLOW_PAID_IMAGE_GENERATION`
+- `ALLOW_PAID_TEXT_GENERATION`
+
+## 3. Apply Supabase migrations
+
+Open the Supabase SQL editor and run, in order:
+
+1. `supabase/migrations/20260512000000_init_schema.sql`
+2. `supabase/migrations/20260512000100_rls_policies.sql`
+3. `supabase/migrations/20260512000200_storage_buckets.sql`
+4. `supabase/migrations/20260512000300_bootstrap.sql`
+
+Or with the Supabase CLI:
+
+```bash
+supabase link --project-ref <your-ref>
+supabase db push
+```
+
+The bootstrap migration:
+
+- Creates the **"The Legends Mortgage Team"** organization
+- Installs a trigger so every new `auth.users` row gets a `profiles` row
+- Auto-promotes `NEXT_PUBLIC_OWNER_EMAIL` (default `jeremy@mcdonald-mtg.com`)
+  to the **owner** role and links the organization
+- Seeds `provider_credentials` placeholders so Settings has something to render
+
+## 4. Run the app
+
+```bash
+npm run dev
+```
+
+Open <http://localhost:3000>. You'll land on `/login`. Sign up using the owner
+email so you get owner privileges immediately. Other team members signed up
+afterward will start as `loan_officer` and can be promoted via:
+
+```sql
+select public.promote_owner('newowner@example.com');
+```
+
+## 5. Verify
+
+- `/api/health` returns `{ ok: true, supabaseConfigured: true }`
+- The dashboard at `/dashboard` shows your name and role
+- Settings → Providers reflects the env vars you have set
+
+## 5a. LegendsOS Help Coaches
+
+LegendsOS includes two official Custom GPT support resources in the setup and
+help surfaces:
+
+| Coach | Link | When to use it |
+|---|---|---|
+| LegendsOS Setup Coach | <https://chatgpt.com/g/g-6a0dfa05db788191974b89796687537b-legendsos-setup-coach> | Use this for step by step setup help with LegendsOS, n8n, Google Workspace, approved social accounts, MCP, and AI provider basics. |
+| LegendsOS Marketing Image Coach | <https://chatgpt.com/g/g-6a0e0ab69138819189185accaeff955e-legendsos-marketing-image-coach> | Use this before creating mortgage marketing images, preparing reference photos, writing Image Studio prompts, or checking that visuals stay mortgage safe. |
+
+## 5b. Login page extras
+
+The sign-in page (`/login`) reads three optional public env vars:
+
+| Env var | What it does |
+|---|---|
+| `NEXT_PUBLIC_WELCOME_VIDEO_URL` | Embeds a welcome video in the left panel. Use a vimeo / youtube / loom embed URL. If empty, a placeholder card is shown. |
+| `NEXT_PUBLIC_DESKTOP_MAC_DOWNLOAD_URL` | Points the "Download for Mac" button at a hosted `.dmg`. If empty the button shows "Coming soon" and is disabled. |
+| `NEXT_PUBLIC_DESKTOP_WINDOWS_DOWNLOAD_URL` | Points the "Download for Windows" button at a hosted `.exe` / `.msi`. If empty the button shows "Coming soon" and is disabled. |
+
+These vars are public (browser-readable) by design — they are URLs, not secrets.
+LegendsOS does not auto-wrap a desktop app; once you ship a wrapper, host the
+installer behind a CDN and paste the URLs in.
+
+## 6. Deploy to Netlify
+
+1. Push the repo to GitHub.
+2. Import the repo in Netlify; build command and publish dir come from
+   `netlify.toml`.
+3. Add the same env vars in Netlify → Site → Environment.
+4. Add `https://<your-netlify-url>/auth/callback` to Supabase Auth → URL
+   Configuration → Redirect URLs.
+
+## Troubleshooting
+
+- **`Missing required environment variable`** in the server log — the named env
+  var is unset. Add it to `.env.local` or your Netlify env.
+- **`No active profile`** after login — your `auth.users` row didn't trigger
+  the bootstrap. Re-run `20260512000300_bootstrap.sql` and sign in again.
+- **`provider_not_configured`** from the AI gateway — set the matching env
+  var and reload the server.
